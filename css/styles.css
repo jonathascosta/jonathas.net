@@ -18,7 +18,7 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -1rem; /* Ajuste para posicionar o separador */
+    bottom: -2rem; /* Ajuste para posicionar o separador */
     color: #000; /* Ajuste a cor conforme necessário */
 }
 
