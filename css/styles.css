@@ -7,6 +7,10 @@ body {
     font-size: 1.25rem;
 }
 
+h5 {
+    font-weight: 600;
+}
+
 #intro {
     padding-top: 0;
     margin-top: 0 !important;
@@ -147,6 +151,10 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .card {
+        margin-bottom: 10px;
+    }
+
     .timeline::before {
         display: none;
     }
