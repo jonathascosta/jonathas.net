@@ -4,6 +4,26 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin-bottom: 200px;
+    font-size: 1.25rem;
+}
+
+#intro p {
+    position: relative;
+    margin-bottom: 2rem; /* Ajuste conforme necessário */
+}
+
+#intro p::after {
+    content: "•"; /* Escolha seu separador: "•", "*", ".", "-", etc. */
+    font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -1rem; /* Ajuste para posicionar o separador */
+    color: #000; /* Ajuste a cor conforme necessário */
+}
+
+#intro p:last-of-type::after {
+    content: ""; /* Remove o separador após o último parágrafo */
 }
 
 .container {
