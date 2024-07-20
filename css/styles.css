@@ -7,6 +7,11 @@ body {
     font-size: 1.25rem;
 }
 
+#intro {
+    padding-top: 0;
+    margin-top: 0 !important;
+}
+
 #intro p {
     position: relative;
     margin-bottom: 2rem; /* Ajuste conforme necessário */
