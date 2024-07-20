@@ -83,6 +83,11 @@ body {
     flex-direction: row-reverse;
 }
 
+section {
+    margin-top: 80px;
+    padding-top: 80px;
+}
+
 footer {
     background-color: #f8f9fa;
     padding: 1rem 0;
