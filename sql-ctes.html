@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-2968705923738055">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2968705923738055"
+        crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <title>Diving Into SQL's Hidden Gems: Common Table Expressions (CTEs) - jonathas.net</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Local CSS -->
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand brand-logo" href="/">jonathas.net</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#articles">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#journey">Journey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container mt-5 pt-5">
+        <!-- Article Section -->
+        <article class="mt-5">
+            <h1 class="mt-4">Diving Into SQL's Hidden Gems: Common Table Expressions (CTEs)</h1>
+            
+            <img src="/img/CTEs.webp" class="article-image img-fluid my-4" alt="SQL CTEs">
+            
+            <p>In the vast world of SQL, the WITH clause, or Common Table Expressions (CTEs), stands out as an underutilized treasure. It's a powerful tool that offers a sleek way to structure complex queries, enhancing readability and maintainability.</p>
+
+            <h2>What Are CTEs?</h2>
+            <p>Common Table Expressions (CTEs) allow you to define temporary result sets that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement. Think of them as temporary named result sets that exist only during the execution of a query.</p>
+
+            <h2>Quick Example</h2>
+            <p>Here's a practical example demonstrating how CTEs simplify complex queries:</p>
+            <pre><code>WITH SalesSummary AS (
+    SELECT
+        ProductID,
+        SUM(Sales) AS TotalSales
+    FROM Sales
+    GROUP BY ProductID
+)
+SELECT *
+FROM SalesSummary
+WHERE TotalSales > 1000;</code></pre>
+            <p>This snippet demonstrates using a CTE to summarize sales by product, then selecting products exceeding a certain sales threshold.</p>
+
+            <h2>Why CTEs Rock</h2>
+            
+            <h3>Readability</h3>
+            <p>CTEs break down complex queries into manageable, logical parts. Instead of nested subqueries that can be difficult to parse, CTEs let you build your query step by step, making it much easier to understand what's happening at each stage.</p>
+
+            <h3>Reusability</h3>
+            <p>CTEs can be referenced multiple times within your query. This is particularly valuable when you need to use the same result set in different parts of your query or when working with recursive queries that build upon previous results.</p>
+
+            <h3>Maintainability</h3>
+            <p>When you need to modify a complex query, CTEs make the task much simpler. Instead of hunting through nested subqueries, you can easily identify and update the specific CTE that needs changes, encapsulating complexity in a clean, organized way.</p>
+
+            <h2>Advanced Use Cases</h2>
+            <ul>
+                <li><strong>Recursive Queries:</strong> CTEs excel at hierarchical data processing, such as organizational charts or bill of materials</li>
+                <li><strong>Multiple References:</strong> Use the same CTE multiple times in joins or unions without rewriting the logic</li>
+                <li><strong>Query Organization:</strong> Break down complex business logic into understandable steps</li>
+                <li><strong>Performance Optimization:</strong> In some cases, CTEs can improve query performance by reducing redundant calculations</li>
+            </ul>
+
+            <h2>Best Practices</h2>
+            <ul>
+                <li>Use descriptive names for your CTEs that reflect their purpose</li>
+                <li>Keep each CTE focused on a single, clear objective</li>
+                <li>Consider performance implications for large datasets</li>
+                <li>Document complex CTEs with comments explaining their purpose</li>
+                <li>Chain multiple CTEs together for step-by-step query construction</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+            <p>If you've yet to explore CTEs, now is the perfect time to dive in and discover how they can streamline even the most daunting queries. Common Table Expressions are not just a syntactic convenience—they're a fundamental tool for writing clear, maintainable, and powerful SQL code.</p>
+
+            <p>Start incorporating CTEs into your SQL toolkit, and you'll find yourself writing cleaner, more understandable queries that are easier to debug and maintain over time.</p>
+
+            <div class="mt-5">
+                <a href="/#articles" class="btn btn-primary">← Back to Articles</a>
+            </div>
+        </article>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start fixed-bottom">
+        <div class="text-center p-3">
+            Made with Bootstrap, Google Fonts, DALL-E v3, and ChatGPT v4.
+        </div>
+    </footer>
+</body>
+
+</html>
