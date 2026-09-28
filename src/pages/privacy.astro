@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, SOCIAL } from '../data/site';
-
-const CONTACT = 'bee.pumice566@eagereverest.com';
 ---
 
 <BaseLayout
@@ -17,7 +15,7 @@ const CONTACT = 'bee.pumice566@eagereverest.com';
     </header>
 
     <div class="prose">
-      <p>This policy covers <strong>www.jonathas.net</strong>, the personal site of {SITE.author}, a software engineer in {SITE.location.city}, {SITE.location.country}. For any question about it, write to <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.</p>
+      <p>This policy covers <strong>www.jonathas.net</strong>, the personal site of {SITE.author}, a software engineer in {SITE.location.city}, {SITE.location.country}. For any question about it, write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
       <p>The apps linked from here have their own notes: the Salary Converter has <a href="https://salary-converter.jonathas.net/privacy-policy.html">its own privacy policy</a>, and the Sudoku keeps your game in your browser only.</p>
 
       <h2>The short version</h2>

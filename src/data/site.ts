@@ -1,6 +1,7 @@
 export const SITE = {
   name: 'jonathas.net',
   author: 'Jonathas Costa',
+  email: 'jonathas.costa@gmail.com',
   jobTitle: 'Senior Software Engineer',
   location: { city: 'Porto', country: 'Portugal' },
   title: 'Jonathas Costa · Senior Software Engineer',
