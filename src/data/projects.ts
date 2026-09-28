@@ -15,19 +15,19 @@ export const projects: Project[] = [
   {
     title: 'Salary Converter',
     description:
-      'Versatile tool designed to facilitate salary conversions between different currencies and time periods.',
+      'Converts a salary between hourly, daily, weekly, monthly and yearly pay in BRL, USD, EUR and GBP, with the Central Bank of Brazil’s exchange rates and shareable links.',
     url: 'https://salary-converter.jonathas.net/',
     image: salaryConverter,
     imageAlt: 'Screenshot of the Salary Converter: 3,000 euros a month converted to BRL, USD and GBP per hour, day, week, month and year',
-    tags: ['ECMAScript 6', 'Web app'],
+    tags: ['TypeScript', 'Vite', 'Web app'],
   },
   {
     title: 'Sudoku',
     description:
-      'A Sudoku game with annotations, undo functionality and hints to enhance the user experience.',
+      'A Sudoku with three levels, notes, undo and hints. It saves your game as you play and works offline.',
     url: 'https://sudoku.jonathas.net/',
     image: sudoku,
-    imageAlt: 'Screenshot of the Sudoku game with pencil-mark annotations, a selected cell and the Undo, Erase and Hint buttons',
-    tags: ['ECMAScript 6', 'Game'],
+    imageAlt: 'Screenshot of the Sudoku: a medium puzzle in progress, with the player’s digits in blue, pencil-mark notes, a selected cell and the number pad',
+    tags: ['TypeScript', 'PWA', 'Game'],
   },
 ];

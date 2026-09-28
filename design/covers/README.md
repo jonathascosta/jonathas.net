@@ -32,4 +32,6 @@ Keep the important content between 60 px and 690 px from the top: link previews 
 
 ## Screenshots
 
-`screens/` holds screenshots of the two apps running locally, with their fonts served locally and the ad slots hidden. The Salary Converter uses the exchange rates shown in its own README screenshot (14 May 2024).
+`screens/` holds screenshots of the two apps (1080 px wide, at 2×), taken from local builds with the ad slots hidden. The Salary Converter shows 3,000 EUR a month with the PTAX rates of 14 May 2024, the ones in its first version's README screenshot.
+
+The apps' link previews (`public/og.png` in each app's repository) are 1200×630 crops of these covers.
