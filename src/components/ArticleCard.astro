@@ -1,0 +1,126 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { articleUrl, formatDate, readingTime, type Article } from '../lib/articles';
+
+interface Props {
+  article: Article;
+  /** Heading level for the title, depending on where the card is used. */
+  as?: 'h2' | 'h3';
+}
+
+const { article, as: Heading = 'h3' } = Astro.props;
+const { title, description, pubDate, heroImage, lang } = article.data;
+---
+
+<article class="article-card" lang={lang === 'en' ? undefined : lang}>
+  <div class="text">
+    <p class="meta">
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{readingTime(article.body)} min read</span>
+    </p>
+    <Heading class="title"><a class="stretched-link" href={articleUrl(article)}>{title}</a></Heading>
+    <p class="excerpt">{description}</p>
+    <span class="read-more" aria-hidden="true">Read article <Icon name="arrow-right" size={16} /></span>
+  </div>
+  <div class="thumb">
+    <Picture
+      src={heroImage}
+      alt=""
+      formats={['avif']}
+      fallbackFormat="webp"
+      widths={[320, 480, 640, 960]}
+      sizes="(min-width: 48rem) 20rem, calc(100vw - 2rem)"
+    />
+  </div>
+</article>
+
+<style>
+  .article-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding-block: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .text {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.625rem, 1.3rem + 1.3vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.12;
+    transition: color 0.2s var(--ease);
+  }
+
+  .article-card:hover .title {
+    color: var(--accent);
+  }
+
+  .excerpt {
+    max-width: 38rem;
+    color: var(--text-muted);
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 560;
+  }
+
+  .read-more :global(.icon) {
+    transition: translate 0.25s var(--ease);
+  }
+
+  .article-card:hover .read-more :global(.icon) {
+    translate: 3px 0;
+  }
+
+  .thumb {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+  }
+
+  .thumb :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: scale 0.5s var(--ease);
+  }
+
+  .article-card:hover .thumb :global(img) {
+    scale: 1.04;
+  }
+
+  @media (max-width: 47.99rem) {
+    .article-card {
+      grid-template-columns: 1fr;
+    }
+
+    .thumb {
+      grid-row: 1;
+    }
+  }
+</style>

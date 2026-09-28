@@ -1,0 +1,211 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Contact from '../components/Contact.astro';
+import Icon from '../components/Icon.astro';
+import Journey from '../components/Journey.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import banner from '../assets/images/banner-intro.webp';
+import { projects } from '../data/projects';
+import { SITE, SOCIAL } from '../data/site';
+import { getArticles } from '../lib/articles';
+
+const articles = await getArticles();
+const site = Astro.site!.href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site}#website`,
+      url: site,
+      name: SITE.name,
+      inLanguage: SITE.lang,
+      publisher: { '@id': `${site}#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${site}#person`,
+      name: SITE.author,
+      url: site,
+      jobTitle: SITE.jobTitle,
+      address: { '@type': 'PostalAddress', addressLocality: SITE.location.city, addressCountry: 'PT' },
+      sameAs: [SOCIAL.linkedin, SOCIAL.github],
+    },
+  ],
+};
+---
+
+<BaseLayout jsonLd={jsonLd}>
+  <section class="hero container" aria-labelledby="hero-title">
+    <div class="hero-intro">
+      <p class="eyebrow">{SITE.jobTitle} · {SITE.location.city}, {SITE.location.country}</p>
+      <h1 id="hero-title" class="display hero-title">
+        Hello, World! <span class="hero-name">I’m <em>Jonathas</em>.</span>
+      </h1>
+    </div>
+    <div class="hero-aside">
+      <p class="hero-lead">
+        A passionate software engineer who loves transforming ideas into reality. Dive in to explore my journey,
+        projects, and the cool stuff I’m working on.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#portfolio">
+          See my work <Icon name="arrow-right" size={18} class="icon-arrow" />
+        </a>
+        <a class="button button-secondary" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <Picture
+        src={banner}
+        alt="Illustration of a software architecture workspace with code screens, blueprints and gears"
+        formats={['avif']}
+        fallbackFormat="webp"
+        widths={[640, 800, 960, 1280, 1600]}
+        sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)"
+        priority
+      />
+    </div>
+  </section>
+
+  <section id="portfolio" class="section container" aria-labelledby="portfolio-title">
+    <SectionHeading id="portfolio-title" index="01" eyebrow="Portfolio" title="Featured projects" />
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </section>
+
+  <section id="articles" class="section container" aria-labelledby="articles-title">
+    <SectionHeading id="articles-title" index="02" eyebrow="Articles" title="Latest posts">
+      <a slot="action" class="feed-link" href="/rss.xml"><Icon name="rss" size={16} /> RSS feed</a>
+    </SectionHeading>
+    <ol class="article-list" role="list">
+      {
+        articles.map((article) => (
+          <li>
+            <ArticleCard article={article} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="journey" class="section container" aria-labelledby="journey-title">
+    <SectionHeading id="journey-title" index="03" eyebrow="Journey" title="Latest on my journey" />
+    <Journey />
+  </section>
+
+  <Contact />
+</BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(3rem, 9vw, 6.5rem);
+  }
+
+  .hero-title {
+    margin-top: 1.5rem;
+    font-size: clamp(3.25rem, 1.4rem + 7.6vw, 7.5rem);
+  }
+
+  .hero-name {
+    display: block;
+  }
+
+  .hero-lead {
+    max-width: 38rem;
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  /* Wide screens: headline on the left, supporting copy aligned to its baseline on the right. */
+  @media (min-width: 64rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      column-gap: clamp(2rem, 5vw, 5rem);
+      align-items: end;
+    }
+
+    .hero-aside {
+      padding-bottom: 0.9rem;
+    }
+
+    .hero-media {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Narrow screens: the eyebrow wraps, so drop its decorative rule. */
+  @media (max-width: 40rem) {
+    .hero .eyebrow::after {
+      display: none;
+    }
+  }
+
+  .hero-media {
+    margin-top: clamp(1.75rem, 5vw, 2.5rem);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.5);
+    background: var(--surface-2);
+  }
+
+  .hero-media :global(img) {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .feed-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    transition:
+      color 0.2s var(--ease),
+      border-color 0.2s var(--ease);
+  }
+
+  .feed-link:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .article-list {
+    list-style: none;
+  }
+
+  .article-list li + li {
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 47.99rem) {
+    .hero-media :global(img) {
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>

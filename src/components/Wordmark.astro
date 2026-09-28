@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<a class:list={['wordmark', className]} href="/">jonathas<span>.net</span></a>
+
+<style>
+  .wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.625rem;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  span {
+    font-style: normal;
+    color: var(--accent);
+  }
+</style>

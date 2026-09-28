@@ -1,0 +1,225 @@
+---
+import { render } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, SOCIAL } from '../data/site';
+import { articleUrl, formatDate, getArticles, readingTime, type Article } from '../lib/articles';
+import { getSocialImageUrl } from '../lib/social-image';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article, more: articles.filter(({ id }) => id !== article.id).slice(0, 2) },
+  }));
+}
+
+interface Props {
+  article: Article;
+  more: Article[];
+}
+
+const { article, more } = Astro.props;
+const { Content } = await render(article);
+const { title, description, pubDate, updatedDate, heroImage, heroAlt, tags, lang } = article.data;
+
+const url = new URL(articleUrl(article), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  url,
+  mainEntityOfPage: url,
+  image: await getSocialImageUrl(heroImage, Astro.site!),
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  inLanguage: lang,
+  keywords: tags.join(', '),
+  author: { '@type': 'Person', name: SITE.author, url: Astro.site!.href, sameAs: [SOCIAL.linkedin, SOCIAL.github] },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  imageAlt={heroAlt}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <article class="article">
+    <header class="article-header">
+      <a class="back-link" href="/#articles"><Icon name="arrow-left" size={16} /> All articles</a>
+      <p class="article-meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(article.body)} min read</span>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                Updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate, lang)}</time>
+              </span>
+            </>
+          )
+        }
+      </p>
+      <h1 class="display article-title">{title}</h1>
+      {tags.length > 0 && <ul class="tags" role="list">{tags.map((tag) => <li>{tag}</li>)}</ul>}
+    </header>
+
+    <div class="article-hero">
+      <Picture
+        src={heroImage}
+        alt={heroAlt}
+        formats={['avif']}
+        fallbackFormat="webp"
+        widths={[640, 800, 960, 1280, 1600]}
+        sizes="(min-width: 60rem) 56rem, calc(100vw - 2rem)"
+        priority
+      />
+    </div>
+
+    <div class="prose article-body">
+      <Content />
+    </div>
+
+    <footer class="article-footer">
+      <p>
+        Written by <strong>{SITE.author}</strong>, {SITE.jobTitle.toLowerCase()} in {SITE.location.city}. Found it
+        useful? Let’s talk on <a href={SOCIAL.linkedin}>LinkedIn</a>.
+      </p>
+      <a class="button button-secondary" href="/#articles"><Icon name="arrow-left" size={18} /> Back to articles</a>
+    </footer>
+  </article>
+
+  {
+    more.length > 0 && (
+      <section class="more container" aria-labelledby="more-title">
+        <h2 id="more-title" class="eyebrow">
+          More articles
+        </h2>
+        <ol class="more-list" role="list">
+          {more.map((item) => (
+            <li>
+              <ArticleCard article={item} as="h3" />
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .article {
+    --article-wide: 56rem;
+    width: min(100% - 2 * var(--gutter), var(--article-wide));
+    margin-inline: auto;
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .article-header,
+  .article-body,
+  .article-footer {
+    max-width: var(--prose-width);
+    margin-inline: auto;
+  }
+
+  .article-header {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    transition: color 0.2s var(--ease);
+  }
+
+  .back-link:hover {
+    color: var(--text);
+  }
+
+  .back-link :global(.icon) {
+    transition: translate 0.25s var(--ease);
+  }
+
+  .back-link:hover :global(.icon) {
+    translate: -3px 0;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+  }
+
+  .article-title {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
+    line-height: 1.04;
+  }
+
+  .article-hero {
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+
+  .article-hero :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .article-footer {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .article-footer strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .article-footer a:not(.button) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .more {
+    padding-top: clamp(4rem, 9vw, 6rem);
+  }
+
+  .more-list {
+    list-style: none;
+    margin-top: 0.5rem;
+  }
+
+  .more-list li {
+    border-top: 1px solid var(--border);
+  }
+</style>
