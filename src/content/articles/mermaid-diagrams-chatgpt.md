@@ -3,7 +3,7 @@ title: "How to Generate Diagrams with Mermaid in ChatGPT"
 description: "Diagrams are essential tools for visualizing processes, workflows, and data structures. Here's how to create them in seconds with Mermaid's text-based syntax, right inside ChatGPT."
 pubDate: 2025-10-16
 heroImage: ../../assets/images/articles/mermaid-diagrams-chatgpt.webp
-heroAlt: "Illustration of a holographic AI figure drawing diagrams on a transparent screen"
+heroAlt: "The Mermaid code from the example next to the flowchart it renders: Start, Is it working?, then Great! or Debug"
 tags: [Mermaid, ChatGPT, Diagrams]
 ---
 

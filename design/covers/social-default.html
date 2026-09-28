@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · jonathas.net</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  header {
+    position: absolute;
+    top: 44px;
+    left: 56px;
+    right: 56px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  h1 { font: 400 60px/1 var(--serif); letter-spacing: -0.01em; }
+  .role { margin-top: 12px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .wordmark { padding-bottom: 6px; font: italic 400 34px/1 var(--serif); }
+  .wordmark span { font-style: normal; color: var(--accent); }
+  .diagram { position: absolute; left: 50px; right: 50px; bottom: 6px; }
+</style>
+</head>
+<body class="social">
+  <header>
+    <div>
+      <h1>Jonathas Costa</h1>
+      <p class="role">Senior Software Engineer · Porto, Portugal</p>
+    </div>
+    <div class="wordmark">jonathas<span>.net</span></div>
+  </header>
+  <!-- render.mjs inlines this SVG so its text uses the fonts above. -->
+  <div class="diagram" data-include="../../src/assets/diagrams/system-wide.svg"></div>
+</body>
+</html>

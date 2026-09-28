@@ -449,6 +449,12 @@ button {
   font-family: inherit;
 }
 
+/* Show code exactly as typed: no ligatures turning --> or >= into single glyphs. */
+.prose code,
+.prose pre {
+  font-variant-ligatures: none;
+}
+
 .prose hr {
   margin-block: 3em;
   border: 0;

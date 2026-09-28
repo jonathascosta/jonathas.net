@@ -1,0 +1,24 @@
+<!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
+<svg class="arch arch-compact" viewBox="0 0 360 240" role="img" aria-label="Diagram: clients call an API gateway and a .NET 8 API backed by SQL Server and Cosmos DB.">
+  <defs>
+    <path id="jm-sql" d="M62 56H270V88C270 124 180 116 180 152V184"/>
+    <path id="jm-cosmos" d="M62 56H298V184"/>
+  </defs>
+  <g class="edges">
+    <path d="M112 56H130"/>
+    <path d="M230 56H248"/>
+    <path d="M298 88V152"/>
+    <path d="M270 88C270 124 180 116 180 152"/>
+  </g>
+  <g class="packets">
+    <circle r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#jm-cosmos"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="2.8s" begin="1.4s" repeatCount="indefinite"><mpath href="#jm-sql"/></animateMotion></circle>
+  </g>
+  <g class="nodes">
+    <g><rect x="12" y="24" width="100" height="64" rx="8"/><text x="62" y="52">Clients</text><text class="sub" x="62" y="70">web</text></g>
+    <g><rect x="130" y="24" width="100" height="64" rx="8"/><text x="180" y="52">Gateway</text><text class="sub" x="180" y="70">https</text></g>
+    <g class="primary"><rect x="248" y="24" width="100" height="64" rx="8"/><text x="298" y="52">.NET 8</text><text class="sub" x="298" y="70">api</text></g>
+    <g><rect x="130" y="152" width="100" height="64" rx="8"/><text x="180" y="180">SQL</text><text class="sub" x="180" y="198">server</text></g>
+    <g><rect x="248" y="152" width="100" height="64" rx="8"/><text x="298" y="180">Cosmos</text><text class="sub" x="298" y="198">db</text></g>
+  </g>
+</svg>

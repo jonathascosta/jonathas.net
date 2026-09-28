@@ -37,6 +37,8 @@ The article, in Markdown.
 
 Code blocks are highlighted at build time, with colours for both themes. The article shows up on the home page, in the RSS feed and in the sitemap automatically.
 
+The cover images are rendered from HTML templates in [`design/covers/`](design/covers/README.md), which also explains how to make one for a new article.
+
 ## Editing the site
 
 | What                                         | Where                     |
@@ -45,6 +47,8 @@ Code blocks are highlighted at build time, with colours for both themes. The art
 | Portfolio projects                           | `src/data/projects.ts`    |
 | Career journey                               | `src/data/experience.ts`  |
 | Colours, typography and spacing              | `src/styles/global.css`   |
+| Architecture diagram on the home page        | `src/assets/diagrams/`    |
+| Cover images                                 | `design/covers/`          |
 | Fonts                                        | `astro.config.mjs`        |
 | Files served as-is (`CNAME`, `ads.txt`, …)   | `public/`                 |
 

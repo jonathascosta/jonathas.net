@@ -1,0 +1,158 @@
+---
+// Blueprint diagram of the kind of systems I build. The SVGs are inlined so the text uses the
+// site fonts and the data "packets" can animate. The wide version is replaced by a compact one on phones.
+import wideSvg from '../assets/diagrams/system-wide.svg?raw';
+import compactSvg from '../assets/diagrams/system-compact.svg?raw';
+
+const stripComment = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/, '');
+---
+
+<figure class="system-diagram">
+  <Fragment set:html={stripComment(wideSvg)} />
+  <Fragment set:html={stripComment(compactSvg)} />
+  <div class="sheet" aria-hidden="true"><span><b>jonathas.net</b></span><span>fig. 00</span><span>systems I build</span></div>
+</figure>
+
+<style>
+  .system-diagram {
+    --bp: #12355b;
+    --bp-light: #1b4775;
+    --bp-deep: #0b2442;
+    --bp-ink: #e8f0ff;
+    --bp-ink-soft: rgb(232 240 255 / 0.66);
+    --bp-ink-faint: rgb(232 240 255 / 0.32);
+    --bp-grid-minor: rgb(232 240 255 / 0.055);
+    --bp-grid-major: rgb(232 240 255 / 0.12);
+    --bp-accent: #ff8a5b;
+
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.5);
+    background:
+      linear-gradient(var(--bp-grid-major) 1px, transparent 1px) -1px -1px / 120px 120px,
+      linear-gradient(90deg, var(--bp-grid-major) 1px, transparent 1px) -1px -1px / 120px 120px,
+      linear-gradient(var(--bp-grid-minor) 1px, transparent 1px) -1px -1px / 24px 24px,
+      linear-gradient(90deg, var(--bp-grid-minor) 1px, transparent 1px) -1px -1px / 24px 24px,
+      radial-gradient(130% 100% at 50% 30%, var(--bp-light), var(--bp) 55%, var(--bp-deep));
+  }
+
+  .system-diagram :global(.arch) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .system-diagram :global(.arch text) {
+    font-family: var(--font-mono);
+    fill: var(--bp-ink);
+  }
+
+  .system-diagram :global(.nodes text) {
+    font-size: 15px;
+    font-weight: 600;
+    text-anchor: middle;
+  }
+
+  .system-diagram :global(.nodes .sub) {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    fill: var(--bp-ink-soft);
+  }
+
+  .system-diagram :global(.nodes rect) {
+    fill: #0c2440;
+    stroke: rgb(232 240 255 / 0.85);
+    stroke-width: 1.5;
+  }
+
+  .system-diagram :global(.primary rect) {
+    fill: #2a2c40;
+    stroke: var(--bp-accent);
+    stroke-width: 2;
+  }
+
+  .system-diagram :global(.primary text:not(.sub)) {
+    fill: var(--bp-accent);
+  }
+
+  .system-diagram :global(.edges path) {
+    fill: none;
+    stroke: rgb(232 240 255 / 0.6);
+    stroke-width: 1.5;
+  }
+
+  .system-diagram :global(.edges .ops) {
+    stroke-dasharray: 5 6;
+  }
+
+  .system-diagram :global(.edge-labels text) {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    fill: var(--bp-ink-soft);
+  }
+
+  .system-diagram :global(.packets circle) {
+    fill: var(--bp-accent);
+  }
+
+  .system-diagram :global(.packets .ops) {
+    fill: var(--bp-ink);
+  }
+
+  .system-diagram :global(.arch-compact) {
+    display: none;
+  }
+
+  .sheet {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.1rem;
+    display: flex;
+    border: 1px solid var(--bp-ink-faint);
+    background: rgb(7 25 48 / 0.55);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bp-ink-soft);
+  }
+
+  .sheet span {
+    padding: 0.4rem 0.65rem;
+  }
+
+  .sheet span + span {
+    border-left: 1px solid var(--bp-ink-faint);
+  }
+
+  .sheet b {
+    font-weight: 600;
+    color: var(--bp-ink);
+  }
+
+  @media (max-width: 64rem) {
+    .sheet {
+      display: none;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .system-diagram :global(.arch-wide) {
+      display: none;
+    }
+
+    .system-diagram :global(.arch-compact) {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .system-diagram :global(.packets) {
+      display: none;
+    }
+  }
+</style>

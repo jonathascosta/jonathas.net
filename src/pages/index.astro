@@ -1,5 +1,4 @@
 ---
-import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import Contact from '../components/Contact.astro';
@@ -7,7 +6,7 @@ import Icon from '../components/Icon.astro';
 import Journey from '../components/Journey.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import banner from '../assets/images/banner-intro.webp';
+import SystemDiagram from '../components/SystemDiagram.astro';
 import { projects } from '../data/projects';
 import { SITE, SOCIAL } from '../data/site';
 import { getArticles } from '../lib/articles';
@@ -60,15 +59,7 @@ const jsonLd = {
       </div>
     </div>
     <div class="hero-media">
-      <Picture
-        src={banner}
-        alt="Illustration of a software architecture workspace with code screens, blueprints and gears"
-        formats={['avif']}
-        fallbackFormat="webp"
-        widths={[640, 800, 960, 1280, 1600]}
-        sizes="(min-width: 76rem) 72rem, calc(100vw - 2rem)"
-        priority
-      />
+      <SystemDiagram />
     </div>
   </section>
 
@@ -158,16 +149,6 @@ const jsonLd = {
 
   .hero-media {
     margin-top: clamp(1.75rem, 5vw, 2.5rem);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: calc(var(--radius) * 1.5);
-    background: var(--surface-2);
-  }
-
-  .hero-media :global(img) {
-    width: 100%;
-    aspect-ratio: 21 / 9;
-    object-fit: cover;
   }
 
   .project-grid {
@@ -201,11 +182,5 @@ const jsonLd = {
 
   .article-list li + li {
     border-top: 1px solid var(--border);
-  }
-
-  @media (max-width: 47.99rem) {
-    .hero-media :global(img) {
-      aspect-ratio: 16 / 10;
-    }
   }
 </style>

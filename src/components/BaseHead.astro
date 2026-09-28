@@ -3,7 +3,7 @@ import type { ImageMetadata } from 'astro';
 import { Font } from 'astro:assets';
 import { SITE, SOCIAL } from '../data/site';
 import { getSocialImageUrl } from '../lib/social-image';
-import defaultImage from '../assets/images/banner-intro.webp';
+import defaultImage from '../assets/images/social-default.webp';
 
 export interface Props {
   /** Page title; the site name is appended automatically. Omit on the home page. */
@@ -23,7 +23,7 @@ const {
   title,
   description = SITE.description,
   image = defaultImage,
-  imageAlt = 'Illustration of a software architecture workspace with code screens and gears',
+  imageAlt = 'Jonathas Costa, Senior Software Engineer: blueprint diagram of a .NET 8 API with SQL Server, Cosmos DB, AWS Lambda, GitHub Actions and Grafana',
   type = 'website',
   publishedTime,
   modifiedTime,
