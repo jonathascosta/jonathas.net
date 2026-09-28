@@ -1,0 +1,38 @@
+---
+interface Props {
+  /** Id of the heading, referenced by the section's aria-labelledby. */
+  id: string;
+  index: string;
+  eyebrow: string;
+  title: string;
+}
+
+const { id, index, eyebrow, title } = Astro.props;
+---
+
+<div class="section-heading">
+  <div>
+    <p class="eyebrow"><span class="eyebrow-index">{index}</span>{eyebrow}</p>
+    <h2 id={id} class="display section-title">{title}</h2>
+  </div>
+  {Astro.slots.has('action') && <slot name="action" />}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  }
+</style>

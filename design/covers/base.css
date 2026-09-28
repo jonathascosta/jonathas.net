@@ -1,0 +1,148 @@
+/* Blueprint cover series for jonathas.net. Pages render at 1200×750 CSS px (×2 = 2400×1500). */
+@font-face {
+  font-family: 'Inter';
+  src: url(../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format('woff2');
+  font-weight: 100 900;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url(../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2) format('woff2');
+  font-weight: 100 800;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url(../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2) format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url(../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2) format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+:root {
+  --bp: #12355b;
+  --bp-light: #1b4775;
+  --bp-deep: #0b2442;
+  --panel: rgb(7 25 48 / 0.55);
+  --ink: #e8f0ff;
+  --ink-soft: rgb(232 240 255 / 0.66);
+  --ink-faint: rgb(232 240 255 / 0.32);
+  --grid-minor: rgb(232 240 255 / 0.055);
+  --grid-major: rgb(232 240 255 / 0.12);
+  --accent: #ff8a5b;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 1200px; height: 750px; overflow: hidden; }
+body.social { height: 630px; }
+
+body {
+  position: relative;
+  font-family: var(--mono);
+  font-variant-ligatures: none;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  background:
+    linear-gradient(var(--grid-major) 1px, transparent 1px) -1px -1px / 120px 120px,
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) -1px -1px / 120px 120px,
+    linear-gradient(var(--grid-minor) 1px, transparent 1px) -1px -1px / 24px 24px,
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px) -1px -1px / 24px 24px,
+    radial-gradient(130% 100% at 50% 30%, var(--bp-light), var(--bp) 55%, var(--bp-deep));
+}
+
+/* Title block in the corner, as on an engineering drawing. */
+.sheet {
+  position: absolute;
+  right: 32px;
+  bottom: 28px;
+  display: flex;
+  border: 1px solid var(--ink-faint);
+  background: var(--panel);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.sheet span { padding: 7px 11px; }
+.sheet span + span { border-left: 1px solid var(--ink-faint); }
+.sheet b { font-weight: 600; color: var(--ink); }
+
+.label {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.accent { color: var(--accent); }
+
+/* Browser window used by the project covers. */
+.window {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(232 240 255 / 0.28),
+    0 30px 70px -20px rgb(0 0 0 / 0.65),
+    0 12px 24px -12px rgb(0 0 0 / 0.4);
+}
+.window img { display: block; width: 100%; }
+.chrome {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 14px;
+  background: #eceef1;
+  border-bottom: 1px solid #d7dbe0;
+}
+.chrome i { width: 11px; height: 11px; border-radius: 50%; background: #c9ced5; }
+.chrome .url {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 16px;
+  border-radius: 7px;
+  background: #fff;
+  font: 500 12.5px var(--sans);
+  color: #4a5160;
+}
+.chrome .url svg { width: 11px; height: 11px; }
+
+/* Dimension line: |<— label —>| */
+.dim {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 12px;
+  border-inline: 1px solid var(--ink-faint);
+  color: var(--ink-soft);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dim::before, .dim::after { content: ''; flex: 1; height: 1px; background: var(--ink-faint); }
+
+/* Architecture diagram (src/assets/diagrams), same styles as src/components/SystemDiagram.astro. */
+.arch { display: block; width: 100%; height: auto; }
+.arch text { font-family: var(--mono); fill: var(--ink); }
+.arch .nodes text { font-size: 15px; font-weight: 600; text-anchor: middle; }
+.arch .nodes .sub { font-size: 12px; font-weight: 400; letter-spacing: 0.04em; fill: var(--ink-soft); }
+.arch .nodes rect { fill: #0c2440; stroke: rgb(232 240 255 / 0.85); stroke-width: 1.5; }
+.arch .primary rect { fill: #2a2c40; stroke: var(--accent); stroke-width: 2; }
+.arch .primary text:not(.sub) { fill: var(--accent); }
+.arch .edges path { fill: none; stroke: rgb(232 240 255 / 0.6); stroke-width: 1.5; }
+.arch .edges .ops { stroke-dasharray: 5 6; }
+.arch .edge-labels text { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; fill: var(--ink-soft); }
+.arch .packets { display: none; }

@@ -1,0 +1,126 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import type { Project } from '../data/projects';
+
+type Props = Project;
+
+const { title, description, url, image, imageAlt, tags } = Astro.props;
+const host = new URL(url).host;
+---
+
+<article class="project-card">
+  <div class="media">
+    <Picture
+      src={image}
+      alt={imageAlt}
+      formats={['avif']}
+      fallbackFormat="webp"
+      widths={[480, 720, 960, 1280]}
+      sizes="(min-width: 76rem) 35rem, (min-width: 48rem) calc(50vw - 3rem), calc(100vw - 2rem)"
+    />
+  </div>
+  <div class="body">
+    <h3 class="title">
+      <a class="stretched-link" href={url} target="_blank" rel="noopener">
+        {title}<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <Icon name="arrow-up-right" size={22} class="icon-external" />
+    </h3>
+    <p class="description">{description}</p>
+    <div class="meta">
+      <ul class="tags" role="list">{tags.map((tag) => <li>{tag}</li>)}</ul>
+      <span class="host">{host}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition:
+      border-color 0.25s var(--ease),
+      box-shadow 0.25s var(--ease),
+      translate 0.25s var(--ease);
+  }
+
+  .project-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+    translate: 0 -2px;
+  }
+
+  .media {
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+
+  .media :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: scale 0.5s var(--ease);
+  }
+
+  .project-card:hover .media :global(img) {
+    scale: 1.03;
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem 1.5rem 1.35rem;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.375rem;
+    font-weight: 620;
+    letter-spacing: -0.015em;
+  }
+
+  .title :global(.icon-external) {
+    flex: none;
+    color: var(--text-subtle);
+    transition:
+      color 0.25s var(--ease),
+      translate 0.25s var(--ease);
+  }
+
+  .project-card:hover .title :global(.icon-external) {
+    color: var(--accent);
+    translate: 2px -2px;
+  }
+
+  .description {
+    color: var(--text-muted);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .host {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+  }
+</style>

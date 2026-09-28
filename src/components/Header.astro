@@ -1,0 +1,194 @@
+---
+import Icon from './Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import Wordmark from './Wordmark.astro';
+import { NAV } from '../data/site';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Wordmark />
+
+    <nav class="nav-desktop" aria-label="Main">
+      <ul role="list">
+        {NAV.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle />
+      <button class="icon-button menu-button" type="button" popovertarget="mobile-menu" aria-label="Menu">
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" popover>
+    <nav aria-label="Menu">
+      <ul role="list">
+        {
+          NAV.map(({ href, label }) => (
+            <li>
+              <a href={href}>
+                {label}
+                <Icon name="arrow-right" size={18} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.5) blur(14px);
+    -webkit-backdrop-filter: saturate(1.5) blur(14px);
+    view-transition-name: site-header;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: var(--header-height);
+  }
+
+  .nav-desktop {
+    margin-left: auto;
+  }
+
+  .nav-desktop ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-desktop a {
+    display: block;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    transition:
+      color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
+  }
+
+  .nav-desktop a:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .menu-button {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: calc(var(--header-height) + 0.5rem) var(--gutter) auto;
+    width: auto;
+    margin: 0;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow);
+  }
+
+  .mobile-menu:popover-open {
+    display: block;
+    animation: menu-in 0.18s var(--ease);
+  }
+
+  .mobile-menu::backdrop {
+    background: rgb(0 0 0 / 0.25);
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+  }
+
+  .mobile-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-radius: 0.625rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .mobile-menu a:hover {
+    background: var(--surface-2);
+  }
+
+  .mobile-menu a :global(.icon) {
+    color: var(--text-subtle);
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      translate: 0 -6px;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .header-actions {
+      margin-left: auto;
+    }
+
+    .menu-button {
+      display: grid;
+    }
+  }
+
+  /* Shared by the theme toggle and the menu button. */
+  :global(.icon-button) {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition:
+      color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
+  }
+
+  :global(.icon-button:hover) {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+</style>
+
+<script>
+  // Close the mobile menu once a section has been picked.
+  const menu = document.getElementById('mobile-menu');
+  menu?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a')) menu.hidePopover();
+  });
+</script>

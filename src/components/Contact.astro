@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import { SOCIAL } from '../data/site';
+---
+
+<section id="contact" class="section container" aria-labelledby="contact-title">
+  <div class="contact-card">
+    <p class="eyebrow eyebrow-centered"><span class="eyebrow-index">04</span>Contact</p>
+    <h2 id="contact-title" class="display contact-title">Let’s build something <em>amazing</em> together.</h2>
+    <p class="contact-lead">The best way to reach me is on LinkedIn. You can also find my code on GitHub.</p>
+    <div class="contact-actions">
+      <a class="button button-primary" href={SOCIAL.linkedin} rel="me">
+        <Icon name="linkedin" size={18} /> Connect on LinkedIn
+      </a>
+      <a class="button button-secondary" href={SOCIAL.github} rel="me">
+        <Icon name="github" size={18} /> Follow on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.5);
+    background:
+      radial-gradient(60rem 22rem at 50% -8rem, var(--accent-soft), transparent 70%),
+      var(--surface);
+    text-align: center;
+  }
+
+  .contact-title {
+    max-width: 16ch;
+    font-size: clamp(2.5rem, 1.6rem + 4vw, 4.75rem);
+  }
+
+  .contact-lead {
+    max-width: 34rem;
+    font-size: 1.125rem;
+    color: var(--text-muted);
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+</style>

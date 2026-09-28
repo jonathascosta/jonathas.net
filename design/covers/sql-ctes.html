@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · SQL CTEs</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .flow {
+    position: absolute;
+    inset: 60px 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .block { display: grid; gap: 12px; }
+  .name { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  table {
+    border-collapse: collapse;
+    font-size: 17px;
+    background: var(--panel);
+    font-variant-numeric: tabular-nums;
+  }
+  th, td { border: 1.5px solid var(--ink-soft); padding: 11px 18px; text-align: left; }
+  th { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  td.num { text-align: right; }
+  .cte table { background: rgb(255 138 91 / 0.1); }
+  .cte th, .cte td { border-color: var(--accent); }
+  .cte th { color: var(--accent); }
+  .cte .name { color: var(--accent); }
+  .tag {
+    justify-self: start;
+    padding: 5px 10px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  .arrow { display: grid; justify-items: center; gap: 10px; width: 150px; text-align: center; font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+  .arrow svg { width: 150px; height: 18px; overflow: visible; }
+  .code {
+    position: absolute;
+    left: 48px;
+    top: 76px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    white-space: pre;
+  }
+  .kw { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="flow">
+    <div class="block">
+      <span class="label">table</span>
+      <span class="name">Sales</span>
+      <table>
+        <tr><th>ProductID</th><th>Sales</th></tr>
+        <tr><td>1</td><td class="num">400</td></tr>
+        <tr><td>1</td><td class="num">850</td></tr>
+        <tr><td>2</td><td class="num">640</td></tr>
+        <tr><td>3</td><td class="num">1,300</td></tr>
+        <tr><td>3</td><td class="num">1,000</td></tr>
+      </table>
+    </div>
+
+    <div class="arrow">
+      <span>SUM(Sales)<br>GROUP BY ProductID</span>
+      <svg viewBox="0 0 150 18"><path d="M2 9h140" stroke="#e8f0ff" stroke-opacity=".66" stroke-width="1.5"/><path d="m136 3 8 6-8 6" fill="none" stroke="#e8f0ff" stroke-opacity=".66" stroke-width="1.5"/></svg>
+    </div>
+
+    <div class="block cte">
+      <span class="label accent">cte</span>
+      <span class="name">SalesSummary</span>
+      <table>
+        <tr><th>ProductID</th><th>TotalSales</th></tr>
+        <tr><td>1</td><td class="num">1,250</td></tr>
+        <tr><td>2</td><td class="num">640</td></tr>
+        <tr><td>3</td><td class="num">2,300</td></tr>
+      </table>
+    </div>
+
+    <div class="arrow">
+      <span>WHERE<br>TotalSales &gt; 1000</span>
+      <svg viewBox="0 0 150 18"><path d="M2 9h140" stroke="#ff8a5b" stroke-width="1.5"/><path d="m136 3 8 6-8 6" fill="none" stroke="#ff8a5b" stroke-width="1.5"/></svg>
+    </div>
+
+    <div class="block">
+      <span class="label">result</span>
+      <span class="name">SELECT *</span>
+      <table>
+        <tr><th>ProductID</th><th>TotalSales</th></tr>
+        <tr><td>1</td><td class="num">1,250</td></tr>
+        <tr><td>3</td><td class="num">2,300</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="code"><span class="kw">WITH</span> SalesSummary <span class="kw">AS</span> (<span class="kw">SELECT</span> ProductID, <span class="kw">SUM</span>(Sales) <span class="kw">AS</span> TotalSales <span class="kw">FROM</span> Sales <span class="kw">GROUP BY</span> ProductID)
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> SalesSummary <span class="kw">WHERE</span> TotalSales &gt; 1000;</div>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 04</span><span>common table expressions</span></div>
+</body>
+</html>

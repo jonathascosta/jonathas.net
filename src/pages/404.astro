@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="Page not found" description="The page you are looking for does not exist." noindex>
+  <section class="not-found container" aria-labelledby="not-found-title">
+    <p class="eyebrow"><span class="eyebrow-index">404</span>Page not found</p>
+    <h1 id="not-found-title" class="display">This page took a <em>wrong turn</em>.</h1>
+    <p>The page you’re looking for doesn’t exist or has moved.</p>
+    <a class="button button-primary" href="/"><Icon name="arrow-left" size={18} /> Back to home</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+    padding-top: clamp(4rem, 12vw, 9rem);
+  }
+
+  h1 {
+    max-width: 14ch;
+    font-size: clamp(3rem, 1.5rem + 6vw, 6rem);
+  }
+
+  p:not(.eyebrow) {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+  }
+</style>

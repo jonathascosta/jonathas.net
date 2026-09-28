@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button class="icon-button theme-toggle" type="button" aria-label="Dark theme" aria-pressed="false" title="Toggle dark theme" data-theme-toggle>
+  <Icon name="moon" size={18} />
+  <Icon name="sun" size={18} />
+</button>
+
+<style>
+  .theme-toggle :global(.icon) {
+    grid-area: 1 / 1;
+  }
+
+  .theme-toggle :global(.icon-sun) {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle :global(.icon-sun) {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle :global(.icon-moon) {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme-toggle :global(.icon-sun) {
+      display: block;
+    }
+
+    :global(:root:not([data-theme='light'])) .theme-toggle :global(.icon-moon) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  type Theme = 'light' | 'dark';
+
+  const root = document.documentElement;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => (root.dataset.theme ?? (prefersDark.matches ? 'dark' : 'light')) === 'dark';
+
+  function sync() {
+    for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+      button.setAttribute('aria-pressed', String(isDark()));
+    }
+  }
+
+  function apply(theme: Theme) {
+    root.dataset.theme = theme;
+    // Keep the mobile browser UI in step with the chosen theme.
+    const background = getComputedStyle(document.body).backgroundColor;
+    for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.setAttribute('content', background);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // Storage can be unavailable (private mode); the choice then lasts for this page only.
+    }
+    sync();
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest('[data-theme-toggle]')) return;
+    const next: Theme = isDark() ? 'light' : 'dark';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !reduceMotion) document.startViewTransition(() => apply(next));
+    else apply(next);
+  });
+
+  prefersDark.addEventListener('change', sync);
+  sync();
+</script>

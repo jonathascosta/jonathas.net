@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · Mermaid in ChatGPT</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .layout {
+    position: absolute;
+    inset: 40px 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+  .editor {
+    width: 470px;
+    border: 1px solid var(--ink-faint);
+    background: var(--panel);
+  }
+  .editor .tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--ink-faint);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .editor pre {
+    padding: 22px 16px 24px;
+    font: 17px/1.9 var(--mono);
+    counter-reset: line;
+  }
+  .editor pre span.ln { display: block; }
+  .editor pre span.ln::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 28px;
+    margin-right: 14px;
+    text-align: right;
+    color: var(--ink-faint);
+  }
+  .kw { color: var(--accent); }
+  .id { color: var(--ink); font-weight: 600; }
+  .txt { color: var(--ink-soft); }
+  .op { color: var(--ink-faint); }
+  .edge-label { color: var(--accent); }
+  .renders { display: grid; justify-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  svg.chart { width: 470px; height: 540px; overflow: visible; }
+  svg.chart text { font-family: var(--mono); font-size: 16px; fill: var(--ink); dominant-baseline: central; text-anchor: middle; }
+  svg.chart .node { fill: rgb(7 25 48 / 0.7); stroke: var(--ink); stroke-width: 1.5; }
+  svg.chart .ok { stroke: var(--accent); }
+  svg.chart .edge { fill: none; stroke: rgb(232 240 255 / 0.66); stroke-width: 1.5; }
+  svg.chart .edge.hot { stroke: var(--accent); }
+  svg.chart .pill { fill: var(--bp); stroke: rgb(232 240 255 / 0.4); }
+  svg.chart .pill-text { font-size: 13px; fill: var(--ink-soft); }
+</style>
+</head>
+<body>
+  <div class="layout">
+    <div class="editor">
+      <div class="tab"><span>flowchart.mmd</span><span>mermaid</span></div>
+      <pre><span class="ln"><span class="kw">graph</span> <span class="kw">TD</span></span><span class="ln">    <span class="id">A</span><span class="txt">[Start]</span> <span class="op">--&gt;</span> <span class="id">B</span><span class="txt">{Is it working?}</span></span><span class="ln">    <span class="id">B</span> <span class="op">--&gt;</span><span class="edge-label">|Yes|</span> <span class="id">C</span><span class="txt">[Great!]</span></span><span class="ln">    <span class="id">B</span> <span class="op">--&gt;</span><span class="edge-label">|No|</span> <span class="id">D</span><span class="txt">[Debug]</span></span><span class="ln">    <span class="id">D</span> <span class="op">--&gt;</span> <span class="id">B</span></span></pre>
+    </div>
+
+    <div class="renders">
+      <span>renders</span>
+      <svg width="70" height="18" viewBox="0 0 70 18"><path d="M2 9h60" stroke="#ff8a5b" stroke-width="1.5"/><path d="m56 3 8 6-8 6" fill="none" stroke="#ff8a5b" stroke-width="1.5"/></svg>
+    </div>
+
+    <svg class="chart" viewBox="0 0 470 540" aria-hidden="true">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+          <path d="M0 0 10 5 0 10z" fill="#e8f0ff" fill-opacity=".8"/>
+        </marker>
+        <marker id="arrow-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+          <path d="M0 0 10 5 0 10z" fill="#ff8a5b"/>
+        </marker>
+      </defs>
+
+      <!-- A[Start] -->
+      <rect class="node" x="165" y="14" width="140" height="52" rx="26"/>
+      <text x="235" y="40">Start</text>
+      <path class="edge" d="M235 66v50" marker-end="url(#arrow)"/>
+
+      <!-- B{Is it working?} -->
+      <path class="node" d="M235 122 355 200 235 278 115 200z"/>
+      <text x="235" y="200">Is it working?</text>
+
+      <!-- B -->|Yes| C -->
+      <path class="edge hot" d="M175 239C130 268 110 300 110 352" marker-end="url(#arrow-hot)"/>
+      <rect class="pill" x="94" y="266" width="50" height="26" rx="13"/>
+      <text class="pill-text" x="119" y="279">Yes</text>
+
+      <!-- B -->|No| D -->
+      <path class="edge" d="M295 239C340 268 360 300 360 352" marker-end="url(#arrow)"/>
+      <rect class="pill" x="330" y="266" width="44" height="26" rx="13"/>
+      <text class="pill-text" x="352" y="279">No</text>
+
+      <!-- C[Great!] -->
+      <rect class="node ok" x="40" y="358" width="140" height="52" rx="6"/>
+      <text x="110" y="384">Great!</text>
+
+      <!-- D[Debug] -->
+      <rect class="node" x="290" y="358" width="140" height="52" rx="6"/>
+      <text x="360" y="384">Debug</text>
+
+      <!-- D --> B (loop) -->
+      <path class="edge" d="M430 384C470 384 470 200 361 200" marker-end="url(#arrow)"/>
+    </svg>
+  </div>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 03</span><span>mermaid diagrams</span></div>
+</body>
+</html>

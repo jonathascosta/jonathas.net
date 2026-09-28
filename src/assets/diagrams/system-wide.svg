@@ -1,0 +1,48 @@
+<!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
+<svg class="arch arch-wide" viewBox="0 0 1200 520" role="img" aria-labelledby="arch-title">
+  <title id="arch-title">Diagram: clients call an API gateway and a .NET 8 API that stores data in SQL Server and Cosmos DB, publishes events to AWS Lambda, is deployed by GitHub Actions and monitored in Grafana.</title>
+  <defs>
+    <path id="j-sql" d="M216 260H600L708 236C735 236 735 176 762 176H846"/>
+    <path id="j-cosmos" d="M216 260H600L708 284C735 284 735 344 762 344H846"/>
+    <path id="j-lambda" d="M600 260V448H708C735 448 735 368 762 368H846"/>
+    <path id="j-metrics" d="M600 260H1068"/>
+    <path id="j-deploy" d="M600 72V260"/>
+  </defs>
+
+  <g class="edges">
+    <path d="M216 260H270"/>
+    <path d="M438 260H492"/>
+    <path d="M708 236C735 236 735 176 762 176"/>
+    <path d="M708 284C735 284 735 344 762 344"/>
+    <path d="M600 324V412"/>
+    <path d="M708 448C735 448 735 368 762 368"/>
+    <path class="ops" d="M600 108V196"/>
+    <path class="ops" d="M708 260H984"/>
+  </g>
+
+  <g class="edge-labels">
+    <text x="243" y="244" text-anchor="middle">HTTPS</text>
+    <text x="624" y="368" text-anchor="start">EVENTS</text>
+    <text x="624" y="152" text-anchor="start">DEPLOY</text>
+    <text x="846" y="252" text-anchor="middle">METRICS</text>
+  </g>
+
+  <g class="packets">
+    <circle r="4.5"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#j-sql"/></animateMotion></circle>
+    <circle r="4.5"><animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#j-cosmos"/></animateMotion></circle>
+    <circle r="4.5"><animateMotion dur="3.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#j-lambda"/></animateMotion></circle>
+    <circle class="ops" r="3.5"><animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite"><mpath href="#j-metrics"/></animateMotion></circle>
+    <circle class="ops" r="3.5"><animateMotion dur="5s" begin="2s" repeatCount="indefinite"><mpath href="#j-deploy"/></animateMotion></circle>
+  </g>
+
+  <g class="nodes">
+    <g><rect x="492" y="36" width="216" height="72" rx="10"/><text x="600" y="66">GitHub Actions</text><text class="sub" x="600" y="88">ci · cd</text></g>
+    <g><rect x="48" y="212" width="168" height="96" rx="10"/><text x="132" y="254">Clients</text><text class="sub" x="132" y="278">web · mobile</text></g>
+    <g><rect x="270" y="212" width="168" height="96" rx="10"/><text x="354" y="254">API Gateway</text><text class="sub" x="354" y="278">rest · https</text></g>
+    <g class="primary"><rect x="492" y="196" width="216" height="128" rx="12"/><text x="600" y="254">.NET 8 API</text><text class="sub" x="600" y="280">asp.net core</text></g>
+    <g><rect x="492" y="412" width="216" height="72" rx="10"/><text x="600" y="442">AWS Lambda</text><text class="sub" x="600" y="464">events · batch</text></g>
+    <g><rect x="762" y="132" width="168" height="88" rx="10"/><text x="846" y="170">SQL Server</text><text class="sub" x="846" y="194">relational</text></g>
+    <g><rect x="762" y="300" width="168" height="88" rx="10"/><text x="846" y="338">Cosmos DB</text><text class="sub" x="846" y="362">documents</text></g>
+    <g><rect x="984" y="216" width="168" height="88" rx="10"/><text x="1068" y="254">Grafana</text><text class="sub" x="1068" y="278">dashboards</text></g>
+  </g>
+</svg>

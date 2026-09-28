@@ -1,0 +1,110 @@
+---
+import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
+import { SITE, SOCIAL } from '../data/site';
+import { industries } from '../data/experience';
+
+const year = new Date().getFullYear();
+const iconCredits = Object.values(industries).map(({ credit }) => credit);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <Wordmark />
+        <p>{SITE.jobTitle} based in {SITE.location.city}, {SITE.location.country}.</p>
+      </div>
+      <ul class="footer-links" role="list">
+        <li><a href={SOCIAL.linkedin} rel="me"><Icon name="linkedin" size={16} /> LinkedIn</a></li>
+        <li><a href={SOCIAL.github} rel="me"><Icon name="github" size={16} /> GitHub</a></li>
+        <li><a href="/rss.xml"><Icon name="rss" size={16} /> RSS</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-meta">
+      <p>© {year} {SITE.author} · <a href="/privacy.html">Privacy policy</a></p>
+      <p class="credits">
+        Industry icons from Flaticon:{' '}
+        {
+          iconCredits.map(({ text, href }, index) => (
+            <>
+              {index > 0 && ', '}
+              <a href={href}>{text}</a>
+            </>
+          ))
+        }.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(4rem, 10vw, 7rem);
+    padding-block: 3rem 2.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+  }
+
+  .footer-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem 3rem;
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 0.75rem;
+    color: var(--text);
+  }
+
+  .footer-brand p {
+    color: var(--text-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    transition: border-color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover {
+    border-color: var(--text);
+  }
+
+  .footer-meta {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+  }
+
+  .footer-meta a {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    text-underline-offset: 0.2em;
+  }
+
+  .footer-meta a:hover {
+    color: var(--text);
+  }
+</style>
