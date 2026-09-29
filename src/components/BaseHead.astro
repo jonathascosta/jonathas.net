@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Font } from 'astro:assets';
-import { SITE, SOCIAL } from '../data/site';
+import { ADSENSE, SITE, SOCIAL } from '../data/site';
 import { getSocialImageUrl } from '../lib/social-image';
 import defaultImage from '../assets/images/social-default.webp';
 
@@ -96,10 +96,11 @@ const structuredData = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c')
 
 {structuredData && <script is:inline type="application/ld+json" set:html={structuredData} />}
 
-<!-- Google AdSense -->
-<meta name="google-adsense-account" content={SITE.adsenseClient} />
+<!-- Google AdSense. If an ad blocker stops the script, the ad slots collapse (see .ads-blocked). -->
+<meta name="google-adsense-account" content={ADSENSE.client} />
 <script
   is:inline
   async
-  src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsenseClient}`}
-  crossorigin="anonymous"></script>
+  src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.client}`}
+  crossorigin="anonymous"
+  onerror="document.documentElement.classList.add('ads-blocked')"></script>

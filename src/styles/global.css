@@ -332,6 +332,35 @@ button {
   border-radius: inherit;
 }
 
+/* The RSS link next to a heading. */
+.feed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.feed-link:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+/* A list of article cards (home page and /articles.html). */
+.article-list {
+  list-style: none;
+}
+
+.article-list li + li {
+  border-top: 1px solid var(--border);
+}
+
 /* Rendered Markdown code (Shiki dual themes, colours as CSS variables). */
 .astro-code,
 .astro-code span {
@@ -424,6 +453,8 @@ button {
 }
 
 .prose :not(pre) > code {
+  /* Long identifiers break at the line end instead of widening the page on a phone. */
+  overflow-wrap: break-word;
   padding: 0.15em 0.4em;
   border: 1px solid var(--border);
   border-radius: 0.375rem;
@@ -459,4 +490,72 @@ button {
   margin-block: 3em;
   border: 0;
   border-top: 1px solid var(--border);
+}
+
+/* Tables come wrapped in .table-scroll (src/lib/rehype-scroll-tables.ts). */
+.prose .table-scroll {
+  margin-block: 1.75em;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.prose th,
+.prose td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-weight: 650;
+  background: var(--surface-2);
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ==========================================================================
+   Ads (filled by src/scripts/ads.ts)
+   ========================================================================== */
+
+.ad {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  /* Room for the label and a 250 px unit, so the text doesn't jump when the ad arrives. */
+  min-height: calc(250px + 1.5rem);
+}
+
+.ad-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.ad ins {
+  text-decoration: none;
+}
+
+.prose .ad {
+  margin-block: 2.5rem;
+}
+
+/* Nothing to show (no ad for the slot, or an ad blocker): no empty box either. */
+.ad:has(ins[data-ad-status='unfilled']),
+.ads-blocked .ad {
+  display: none;
 }

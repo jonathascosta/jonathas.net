@@ -2,17 +2,18 @@
 import { render } from 'astro:content';
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import Icon from '../components/Icon.astro';
-import { SITE, SOCIAL } from '../data/site';
-import { articleUrl, formatDate, getArticles, readingTime, type Article } from '../lib/articles';
+import { ADSENSE, SITE, SOCIAL } from '../data/site';
+import { articleUrl, formatDate, getArticles, readingTime, relatedArticles, type Article } from '../lib/articles';
 import { getSocialImageUrl } from '../lib/social-image';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
   return articles.map((article) => ({
     params: { slug: article.id },
-    props: { article, more: articles.filter(({ id }) => id !== article.id).slice(0, 2) },
+    props: { article, more: relatedArticles(article, articles, 2) },
   }));
 }
 
@@ -55,7 +56,7 @@ const jsonLd = {
 >
   <article class="article">
     <header class="article-header">
-      <a class="back-link" href="/#articles"><Icon name="arrow-left" size={16} /> All articles</a>
+      <a class="back-link" href="/articles.html"><Icon name="arrow-left" size={16} /> All articles</a>
       <p class="article-meta">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
         <span aria-hidden="true">·</span>
@@ -91,8 +92,10 @@ const jsonLd = {
       <Content />
     </div>
 
+    <AdSlot slot={ADSENSE.slots.afterArticle} class="article-ad" />
+
     <footer class="article-footer">
-      <a class="button button-secondary" href="/#articles"><Icon name="arrow-left" size={18} /> Back to articles</a>
+      <a class="button button-secondary" href="/articles.html"><Icon name="arrow-left" size={18} /> All articles</a>
     </footer>
   </article>
 
@@ -127,6 +130,12 @@ const jsonLd = {
   .article-footer {
     max-width: var(--prose-width);
     margin-inline: auto;
+  }
+
+  /* The ad after the text. It's AdSlot's element, which this page's scoped styles don't reach. */
+  .article > :global(.article-ad) {
+    max-width: var(--prose-width);
+    margin: clamp(3rem, 7vw, 4.5rem) auto 0;
   }
 
   .article-header {
