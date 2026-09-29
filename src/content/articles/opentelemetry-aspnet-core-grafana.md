@@ -1,7 +1,7 @@
 ---
 title: "Observability for ASP.NET Core with OpenTelemetry and Grafana, Starting on Your Laptop"
 description: "Traces, metrics and logs from an ASP.NET Core API into Grafana, with one Docker container and a few lines of setup. Then the dashboards and queries that answer the questions you'll actually have in production."
-pubDate: 2026-09-29
+pubDate: 2026-04-08
 heroImage: ../../assets/images/articles/opentelemetry-aspnet-core-grafana.webp
 heroAlt: "Diagram of the setup: an ASP.NET Core API sends traces, metrics and logs over OTLP to the OpenTelemetry Collector, which stores them in Tempo, Prometheus and Loki, all shown in Grafana"
 tags: [.NET, ASP.NET Core, OpenTelemetry, Grafana, Observability]

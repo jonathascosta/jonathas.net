@@ -1,7 +1,7 @@
 ---
 title: "Regular Expressions Arrive in T-SQL: A Practical Tour of SQL Server 2025"
 description: "SQL Server 2025 adds seven REGEXP functions to T-SQL. Here's how to use them to validate, clean, extract and split text, and what to watch for with indexes, collations and compatibility levels."
-pubDate: 2026-09-29
+pubDate: 2026-03-03
 heroImage: ../../assets/images/articles/sql-server-2025-regular-expressions.webp
 heroAlt: "A REGEXP_REPLACE query that fixes postal codes, next to the values before and after: 1100148 becomes 1100-148 and 4460 100 becomes 4460-100"
 tags: [SQL, SQL Server, Databases]

@@ -1,7 +1,7 @@
 ---
 title: "Taming .NET Cold Starts on AWS Lambda: SnapStart, Native AOT and When to Use Each"
 description: "Cold starts are the price of running .NET on Lambda. Here's how to measure them, the cheap fixes to try first, and how SnapStart and Native AOT compare on the .NET 10 runtime."
-pubDate: 2026-09-29
+pubDate: 2026-08-03
 heroImage: ../../assets/images/articles/dotnet-lambda-cold-starts.webp
 heroAlt: "Diagram of a Lambda cold start in three variants: a regular start runs the whole init phase, SnapStart resumes from a snapshot taken when the version is published, and Native AOT starts a precompiled executable without a JIT"
 tags: [.NET, AWS Lambda, Serverless, Performance]

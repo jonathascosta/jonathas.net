@@ -1,7 +1,7 @@
 ---
 title: "Diving Into SQL's Hidden Gems: Common Table Expressions (CTEs)"
 description: "In the vast world of SQL, the WITH clause, or Common Table Expressions (CTEs), stands out as an underutilized treasure: a sleek way to structure complex queries, enhancing readability and maintainability."
-pubDate: 2025-10-16
+pubDate: 2024-04-10
 heroImage: ../../assets/images/articles/sql-ctes.webp
 heroAlt: "Diagram of the example query: the Sales table is grouped into the SalesSummary CTE, then filtered to the products with total sales over 1,000"
 tags: [SQL, Databases]
