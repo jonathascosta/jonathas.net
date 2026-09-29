@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Haul truck: dump body, cab and two big wheels -->
+  <path d="M56 300 L28 124 H332 V192 H408 L476 256 V300 Z" />
+  <path d="M358 222 H394 L428 256 H358 Z" />
+  <circle cx="140" cy="376" r="76" />
+  <circle cx="140" cy="376" r="18" />
+  <circle cx="388" cy="376" r="76" />
+  <circle cx="388" cy="376" r="18" />
+</svg>

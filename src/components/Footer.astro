@@ -2,10 +2,10 @@
 import Icon from './Icon.astro';
 import Wordmark from './Wordmark.astro';
 import { SITE, SOCIAL } from '../data/site';
-import { industries } from '../data/experience';
+import { industries, type Industry } from '../data/experience';
 
 const year = new Date().getFullYear();
-const iconCredits = Object.values(industries).map(({ credit }) => credit);
+const iconCredits = (Object.values(industries) as Industry[]).flatMap(({ credit }) => (credit ? [credit] : []));
 ---
 
 <footer class="site-footer">
