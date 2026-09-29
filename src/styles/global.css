@@ -492,7 +492,7 @@ button {
   border-top: 1px solid var(--border);
 }
 
-/* Tables come wrapped in .table-scroll (src/lib/rehype-scroll-tables.ts). */
+/* Tables come wrapped in .table-scroll (src/lib/markdown-plugins.ts). */
 .prose .table-scroll {
   margin-block: 1.75em;
   overflow-x: auto;
