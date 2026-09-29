@@ -2,11 +2,14 @@ export const SITE = {
   name: 'jonathas.net',
   author: 'Jonathas Costa',
   email: 'jonathas.costa@gmail.com',
-  jobTitle: 'Senior Software Engineer',
+  /** How the site introduces me: home page, footer and page titles. */
+  role: 'Software Crafter',
+  /** The job title in the structured data search engines read. */
+  jobTitle: 'Software Engineer',
   location: { city: 'Porto', country: 'Portugal' },
-  title: 'Jonathas Costa · Senior Software Engineer',
+  title: 'Jonathas Costa · Software Crafter',
   description:
-    "I'm Jonathas Costa, a Senior Software Engineer in Porto, Portugal, who loves transforming ideas into reality. Explore my projects, articles and career journey.",
+    "I'm Jonathas Costa, a software crafter in Porto, Portugal, who loves transforming ideas into reality. Explore my projects, articles and career journey.",
   locale: 'en_US',
   lang: 'en',
 } as const;
