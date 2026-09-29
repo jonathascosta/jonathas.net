@@ -6,12 +6,14 @@ import flask from '../assets/icons/industries/test.png';
 import shield from '../assets/icons/industries/insurance.png';
 import train from '../assets/icons/industries/train.png';
 import handbag from '../assets/icons/industries/fashion.png';
+import chart from '../assets/icons/industries/finance.png';
+import haulTruck from '../assets/icons/industries/mining.png';
 
 export interface Industry {
   label: string;
   icon: ImageMetadata;
-  /** Flaticon requires attribution for its free icons. */
-  credit: { text: string; href: string };
+  /** Flaticon requires attribution for its free icons. The ones drawn for this site (design/icons/) need none. */
+  credit?: { text: string; href: string };
 }
 
 export const industries = {
@@ -50,6 +52,14 @@ export const industries = {
     icon: handbag,
     credit: { text: 'Handbag icons created by Eucalyp', href: 'https://www.flaticon.com/free-icons/handbag' },
   },
+  finance: {
+    label: 'Financial analytics',
+    icon: chart,
+  },
+  mining: {
+    label: 'Mining',
+    icon: haulTruck,
+  },
 } satisfies Record<string, Industry>;
 
 export type IndustryKey = keyof typeof industries;
@@ -64,6 +74,24 @@ export interface Role {
 }
 
 export const experience: Role[] = [
+  {
+    role: 'Software Engineer',
+    company: 'Univet',
+    period: '2026 – present',
+    industries: ['veterinary'],
+    summary:
+      'On a direct contract, I’ve shipped 23 features across Univet’s warehouse system and Cockpit, a GMP app for e-signed batch release and environmental monitoring, built the deployment tool every release goes through, and added 212 automated tests.',
+    stack: ['WMS', 'GMP', 'E-signatures', 'Test automation'],
+  },
+  {
+    role: 'Senior Software Engineer',
+    company: 'Ardanis / Plain Concepts',
+    period: '2025 – present',
+    industries: ['insurance', 'finance', 'mining'],
+    summary:
+      'Three clients so far: .NET, SQL Server and Azure for PremFina; Aileen, Ardanis’s AI contact-center platform, for SOBI Analytics; and an AI agent that answers questions about Anglo American’s haul trucks and mining equipment.',
+    stack: ['.NET', 'SQL Server', 'Azure', 'AI agents'],
+  },
   {
     role: 'Senior Software Engineer',
     company: 'Proxify / Univet',

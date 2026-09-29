@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Financial analytics: axes, rising bars and a trend arrow -->
+  <path d="M48 48 V464 H464" />
+  <rect x="116" y="316" width="64" height="100" rx="10" />
+  <rect x="228" y="252" width="64" height="164" rx="10" />
+  <rect x="340" y="188" width="64" height="228" rx="10" />
+  <path d="M112 240 L220 172 L292 196 L432 88" />
+  <path d="M368 88 H432 V152" />
+</svg>
