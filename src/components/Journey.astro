@@ -1,6 +1,15 @@
 ---
 import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
 import { experience, industries, type IndustryKey } from '../data/experience';
+
+interface Props {
+  /** Id of the section heading, referenced by the section's aria-labelledby. */
+  headingId: string;
+}
+
+const { headingId } = Astro.props;
 
 // The Flaticon line icons are black on transparent. Used as CSS masks they take the
 // current text colour, so they work in both light and dark themes.
@@ -12,40 +21,129 @@ const iconUrls = Object.fromEntries(
     }),
   ),
 ) as Record<IndustryKey, string>;
+
+const isCurrent = (period: string) => period.includes('present');
+
+// One list, two layouts (list and timeline). The radio buttons switch between them with CSS
+// alone (:has), so the content is never duplicated and the switch works without JavaScript.
 ---
 
-<ol class="journey" role="list">
-  {
-    experience.map((item) => (
-      <li class="entry">
-        <p class="period">{item.period}</p>
-        <div class="content">
-          <h3 class="heading">
-            <span class="company">{item.company}</span>
-            <span class="sr-only">, </span>
-            <span class="role">{item.role}</span>
-          </h3>
-          <ul class="industries" role="list">
-            {item.industries.map((key) => (
-              <li>
-                <span class="industry-icon" style={`--icon: url("${iconUrls[key]}")`} aria-hidden="true" />
-                {industries[key].label}
-              </li>
-            ))}
-          </ul>
-          <p class="summary">{item.summary}</p>
-          <ul class="tags" role="list">
-            {item.stack.map((tag) => (
-              <li>{tag}</li>
-            ))}
-          </ul>
-        </div>
-      </li>
-    ))
-  }
-</ol>
+<div class="journey-block">
+  <SectionHeading id={headingId} index="03" eyebrow="Journey" title="Latest on my journey">
+    <fieldset slot="action" class="view-toggle">
+      <legend class="sr-only">Show my journey as</legend>
+      <label>
+        <input type="radio" name="journey-view" value="list" checked />
+        <Icon name="list" size={16} /> List
+      </label>
+      <label>
+        <input class="view-timeline" type="radio" name="journey-view" value="timeline" />
+        <Icon name="timeline" size={16} /> Timeline
+      </label>
+    </fieldset>
+  </SectionHeading>
+
+  <ol class="journey" role="list">
+    {
+      experience.map((item) => (
+        <li class:list={['entry', { current: isCurrent(item.period) }]}>
+          <p class="period">{item.period}</p>
+          <div class="content">
+            <h3 class="heading">
+              <span class="company">{item.company}</span>
+              <span class="sr-only">, </span>
+              <span class="role">{item.role}</span>
+            </h3>
+            <ul class="industries" role="list">
+              {item.industries.map((key) => (
+                <li>
+                  <span class="industry-icon" style={`--icon: url("${iconUrls[key]}")`} aria-hidden="true" />
+                  {industries[key].label}
+                </li>
+              ))}
+            </ul>
+            <p class="summary">{item.summary}</p>
+            <ul class="tags" role="list">
+              {item.stack.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  // Remember the chosen layout in this browser; switching itself needs no script.
+  const KEY = 'journey-view';
+  const inputs = document.querySelectorAll<HTMLInputElement>('input[name="journey-view"]');
+  try {
+    const saved = localStorage.getItem(KEY);
+    inputs.forEach((input) => (input.checked = input.value === (saved ?? 'list')));
+  } catch {}
+  inputs.forEach((input) =>
+    input.addEventListener('change', () => {
+      try {
+        localStorage.setItem(KEY, input.value);
+      } catch {}
+    }),
+  );
+</script>
 
 <style>
+  /* Layout switch */
+  .view-toggle {
+    display: inline-flex;
+    gap: 0.25rem;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+
+  .view-toggle label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition:
+      color 0.2s var(--ease),
+      background-color 0.2s var(--ease);
+  }
+
+  .view-toggle label:hover {
+    color: var(--text);
+  }
+
+  .view-toggle label:has(input:checked) {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .view-toggle label:has(input:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Visually hidden, still focusable and operable with the arrow keys. */
+  .view-toggle input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* List (default) */
   .journey {
     list-style: none;
     border-bottom: 1px solid var(--border);
@@ -127,6 +225,125 @@ const iconUrls = Object.fromEntries(
 
     .period {
       padding-top: 0;
+    }
+  }
+
+  /*
+   * Timeline: a line down the middle, entries alternating left and right, each one
+   * starting before the previous one ends. On narrow screens the line moves to the left.
+   */
+  .journey-block:has(.view-timeline:checked) .journey {
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 0;
+  }
+
+  .journey-block:has(.view-timeline:checked) .journey::before {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    translate: -50% 0;
+    background: linear-gradient(var(--border-strong) 85%, transparent);
+  }
+
+  .journey-block:has(.view-timeline:checked) .entry {
+    grid-template-columns: minmax(0, 1fr) 4rem minmax(0, 1fr);
+    gap: 0.75rem 0;
+    padding-block: 0;
+    border-top: 0;
+  }
+
+  .journey-block:has(.view-timeline:checked) .entry:nth-child(odd) {
+    grid-template-areas:
+      'period node .'
+      'content . .';
+  }
+
+  .journey-block:has(.view-timeline:checked) .entry:nth-child(even) {
+    grid-template-areas:
+      '. node period'
+      '. . content';
+  }
+
+  /*
+   * Each entry starts 7rem before the previous one ends. Cards on the same side stay apart as
+   * long as the entry between them is taller than 14rem; one with a one-line summary is ~15.5rem.
+   */
+  .journey-block:has(.view-timeline:checked) .entry + .entry {
+    margin-top: -7rem;
+  }
+
+  /* The dot on the line. */
+  .journey-block:has(.view-timeline:checked) .entry::before {
+    content: '';
+    grid-area: node;
+    z-index: 1;
+    place-self: center;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .journey-block:has(.view-timeline:checked) .current::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 6px var(--accent-soft);
+  }
+
+  .journey-block:has(.view-timeline:checked) .period {
+    grid-area: period;
+    padding-top: 0;
+  }
+
+  .journey-block:has(.view-timeline:checked) .entry:nth-child(odd) .period {
+    text-align: right;
+  }
+
+  .journey-block:has(.view-timeline:checked) .current .period {
+    color: var(--accent);
+  }
+
+  .journey-block:has(.view-timeline:checked) .content {
+    grid-area: content;
+    max-width: none;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .journey-block:has(.view-timeline:checked) .current .content {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+
+  @media (max-width: 56rem) {
+    .journey-block:has(.view-timeline:checked) .journey::before {
+      left: 0.75rem;
+    }
+
+    .journey-block:has(.view-timeline:checked) .entry:nth-child(n) {
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      grid-template-areas:
+        'node period'
+        '. content';
+      column-gap: 1rem;
+    }
+
+    .journey-block:has(.view-timeline:checked) .entry + .entry {
+      margin-top: 2rem;
+    }
+
+    .journey-block:has(.view-timeline:checked) .entry:nth-child(odd) .period {
+      text-align: left;
+    }
+
+    .journey-block:has(.view-timeline:checked) .content {
+      padding: 1.25rem;
     }
   }
 </style>
