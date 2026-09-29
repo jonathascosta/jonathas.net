@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · .NET cold starts on AWS Lambda</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg.lanes { position: absolute; left: 0; top: 70px; width: 1200px; height: 600px; overflow: visible; }
+  svg text { font-family: var(--mono); fill: var(--ink); }
+  .lane-name { font-size: 19px; font-weight: 600; }
+  .lane-note { font-size: 12px; letter-spacing: 0.1em; fill: var(--ink-soft); }
+  .rule { stroke: var(--ink-faint); stroke-width: 1; }
+  .seg { fill: rgb(232 240 255 / 0.12); stroke: rgb(232 240 255 / 0.85); stroke-width: 1.5; }
+  .seg.snap { fill: rgb(232 240 255 / 0.06); stroke-dasharray: 5 5; }
+  .seg.fast { fill: rgb(232 240 255 / 0.2); }
+  .seg.invoke { fill: rgb(255 138 91 / 0.18); stroke: var(--accent); stroke-width: 2; }
+  .seg-text { font-size: 13.5px; fill: var(--ink); dominant-baseline: central; }
+  .seg-sub { font-size: 11.5px; fill: var(--ink-soft); dominant-baseline: central; letter-spacing: 0.04em; }
+  .seg-text.invoke { fill: var(--accent); font-weight: 600; }
+  .req { stroke: var(--accent); stroke-width: 2; }
+  .req-label { font-size: 12px; letter-spacing: 0.12em; fill: var(--accent); }
+  .link { fill: none; stroke: rgb(232 240 255 / 0.5); stroke-width: 1.5; stroke-dasharray: 4 5; }
+  .scale { font-size: 11px; letter-spacing: 0.14em; fill: var(--ink-faint); }
+</style>
+</head>
+<body>
+  <svg class="lanes" viewBox="0 0 1200 600">
+    <!-- The request arrives at x = 520 in every lane. -->
+    <line class="req" x1="520" y1="20" x2="520" y2="560" />
+    <text class="req-label" x="532" y="34">REQUEST ARRIVES</text>
+
+    <!-- On demand -->
+    <text class="lane-name" x="80" y="102">On demand</text>
+    <text class="lane-note" x="80" y="126">DEFAULT</text>
+    <rect class="seg" x="520" y="80" width="400" height="56" rx="4" />
+    <text class="seg-text" x="538" y="100">INIT</text>
+    <text class="seg-sub" x="538" y="120">runtime · assemblies · JIT · your code</text>
+    <rect class="seg invoke" x="920" y="80" width="170" height="56" rx="4" />
+    <text class="seg-text invoke" x="940" y="108">INVOKE</text>
+    <line class="rule" x1="80" y1="180" x2="1120" y2="180" />
+
+    <!-- SnapStart -->
+    <text class="lane-name" x="80" y="262">SnapStart</text>
+    <text class="lane-note" x="80" y="286">FROM A SNAPSHOT</text>
+    <rect class="seg snap" x="250" y="222" width="240" height="56" rx="4" />
+    <text class="seg-text" x="266" y="242">INIT + SNAPSHOT</text>
+    <text class="seg-sub" x="266" y="262">when a version is published</text>
+    <path class="link" d="M490 250 H520" />
+    <rect class="seg fast" x="520" y="240" width="120" height="56" rx="4" />
+    <text class="seg-text" x="538" y="268">RESTORE</text>
+    <rect class="seg invoke" x="640" y="240" width="170" height="56" rx="4" />
+    <text class="seg-text invoke" x="660" y="268">INVOKE</text>
+    <line class="rule" x1="80" y1="340" x2="1120" y2="340" />
+
+    <!-- Native AOT -->
+    <text class="lane-name" x="80" y="422">Native AOT</text>
+    <text class="lane-note" x="80" y="446">NO JIT</text>
+    <rect class="seg fast" x="520" y="400" width="130" height="56" rx="4" />
+    <text class="seg-text" x="538" y="420">INIT</text>
+    <text class="seg-sub" x="538" y="440">native exe</text>
+    <rect class="seg invoke" x="650" y="400" width="170" height="56" rx="4" />
+    <text class="seg-text invoke" x="670" y="428">INVOKE</text>
+
+    <text class="scale" x="1120" y="545" text-anchor="end">NOT TO SCALE</text>
+  </svg>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 07</span><span>.NET cold starts on AWS Lambda</span></div>
+</body>
+</html>

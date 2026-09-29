@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · Sudoku generator</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg.grid { position: absolute; left: 0; top: 0; width: 1200px; height: 750px; overflow: visible; }
+  .cell { fill: rgb(7 25 48 / 0.55); stroke: rgb(232 240 255 / 0.3); stroke-width: 1; }
+  .in-row, .in-col, .in-box { fill: rgb(232 240 255 / 0.1); }
+  .target { fill: rgb(255 138 91 / 0.2); stroke: var(--accent); stroke-width: 2.5; }
+  .thick { stroke: rgb(232 240 255 / 0.85); stroke-width: 2; }
+  .digit { font-family: var(--mono); font-size: 22px; font-weight: 600; fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
+  .q { font-family: var(--mono); font-size: 24px; font-weight: 700; fill: var(--accent); text-anchor: middle; dominant-baseline: central; }
+
+  .masks { position: absolute; left: 610px; top: 150px; display: grid; gap: 10px; }
+  .mask { display: flex; align-items: center; gap: 6px; font-size: 18px; }
+  .mask-name { width: 128px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .bit { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--ink-faint); background: var(--panel); color: var(--ink-faint); }
+  .bit.on { color: var(--ink); background: rgb(232 240 255 / 0.14); border-color: rgb(232 240 255 / 0.6); font-weight: 600; }
+  .bit.head { border: 0; background: none; color: var(--ink-soft); font-size: 13px; height: 22px; }
+  .bit.cand { color: var(--accent); background: rgb(255 138 91 / 0.18); border-color: var(--accent); font-weight: 700; }
+  .union { margin-top: 6px; padding-top: 14px; border-top: 1px dashed var(--ink-faint); }
+  .formula { position: absolute; left: 610px; top: 530px; font-size: 16px; line-height: 1.8; color: var(--ink-soft); }
+  .formula b { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+  <svg class="grid" viewBox="0 0 1200 750">
+    <rect class="cell" x="70" y="100" width="52" height="52" />
+    <text class="digit" x="96.0" y="126.0">4</text>
+    <rect class="cell" x="122" y="100" width="52" height="52" />
+    <rect class="cell" x="174" y="100" width="52" height="52" />
+    <rect class="cell" x="226" y="100" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="100" width="52" height="52" />
+    <text class="digit" x="304.0" y="126.0">1</text>
+    <rect class="cell" x="330" y="100" width="52" height="52" />
+    <text class="digit" x="356.0" y="126.0">7</text>
+    <rect class="cell" x="382" y="100" width="52" height="52" />
+    <text class="digit" x="408.0" y="126.0">3</text>
+    <rect class="cell" x="434" y="100" width="52" height="52" />
+    <rect class="cell" x="486" y="100" width="52" height="52" />
+    <rect class="cell" x="70" y="152" width="52" height="52" />
+    <rect class="cell" x="122" y="152" width="52" height="52" />
+    <text class="digit" x="148.0" y="178.0">3</text>
+    <rect class="cell" x="174" y="152" width="52" height="52" />
+    <text class="digit" x="200.0" y="178.0">6</text>
+    <rect class="cell" x="226" y="152" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="152" width="52" height="52" />
+    <rect class="cell" x="330" y="152" width="52" height="52" />
+    <rect class="cell" x="382" y="152" width="52" height="52" />
+    <rect class="cell" x="434" y="152" width="52" height="52" />
+    <text class="digit" x="460.0" y="178.0">9</text>
+    <rect class="cell" x="486" y="152" width="52" height="52" />
+    <rect class="cell" x="70" y="204" width="52" height="52" />
+    <rect class="cell" x="122" y="204" width="52" height="52" />
+    <text class="digit" x="148.0" y="230.0">1</text>
+    <rect class="cell" x="174" y="204" width="52" height="52" />
+    <text class="digit" x="200.0" y="230.0">7</text>
+    <rect class="cell" x="226" y="204" width="52" height="52" />
+    <text class="digit" x="252.0" y="230.0">3</text>
+    <rect class="cell in-col" x="278" y="204" width="52" height="52" />
+    <rect class="cell" x="330" y="204" width="52" height="52" />
+    <text class="digit" x="356.0" y="230.0">5</text>
+    <rect class="cell" x="382" y="204" width="52" height="52" />
+    <rect class="cell" x="434" y="204" width="52" height="52" />
+    <rect class="cell" x="486" y="204" width="52" height="52" />
+    <text class="digit" x="512.0" y="230.0">6</text>
+    <rect class="cell" x="70" y="256" width="52" height="52" />
+    <text class="digit" x="96.0" y="282.0">1</text>
+    <rect class="cell" x="122" y="256" width="52" height="52" />
+    <rect class="cell" x="174" y="256" width="52" height="52" />
+    <text class="digit" x="200.0" y="282.0">4</text>
+    <rect class="cell" x="226" y="256" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="256" width="52" height="52" />
+    <rect class="cell" x="330" y="256" width="52" height="52" />
+    <rect class="cell" x="382" y="256" width="52" height="52" />
+    <rect class="cell" x="434" y="256" width="52" height="52" />
+    <text class="digit" x="460.0" y="282.0">7</text>
+    <rect class="cell" x="486" y="256" width="52" height="52" />
+    <rect class="cell" x="70" y="308" width="52" height="52" />
+    <rect class="cell" x="122" y="308" width="52" height="52" />
+    <rect class="cell" x="174" y="308" width="52" height="52" />
+    <rect class="cell" x="226" y="308" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="308" width="52" height="52" />
+    <text class="digit" x="304.0" y="334.0">4</text>
+    <rect class="cell" x="330" y="308" width="52" height="52" />
+    <rect class="cell" x="382" y="308" width="52" height="52" />
+    <rect class="cell" x="434" y="308" width="52" height="52" />
+    <rect class="cell" x="486" y="308" width="52" height="52" />
+    <rect class="cell" x="70" y="360" width="52" height="52" />
+    <rect class="cell" x="122" y="360" width="52" height="52" />
+    <text class="digit" x="148.0" y="386.0">9</text>
+    <rect class="cell" x="174" y="360" width="52" height="52" />
+    <rect class="cell" x="226" y="360" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="360" width="52" height="52" />
+    <rect class="cell" x="330" y="360" width="52" height="52" />
+    <rect class="cell" x="382" y="360" width="52" height="52" />
+    <text class="digit" x="408.0" y="386.0">6</text>
+    <rect class="cell" x="434" y="360" width="52" height="52" />
+    <rect class="cell" x="486" y="360" width="52" height="52" />
+    <text class="digit" x="512.0" y="386.0">4</text>
+    <rect class="cell in-row" x="70" y="412" width="52" height="52" />
+    <text class="digit" x="96.0" y="438.0">3</text>
+    <rect class="cell in-row" x="122" y="412" width="52" height="52" />
+    <rect class="cell in-row" x="174" y="412" width="52" height="52" />
+    <rect class="cell in-row" x="226" y="412" width="52" height="52" />
+    <text class="digit" x="252.0" y="438.0">4</text>
+    <rect class="cell target" x="278" y="412" width="52" height="52" />
+    <text class="q" x="304.0" y="438.0">?</text>
+    <rect class="cell in-row" x="330" y="412" width="52" height="52" />
+    <text class="digit" x="356.0" y="438.0">6</text>
+    <rect class="cell in-row" x="382" y="412" width="52" height="52" />
+    <text class="digit" x="408.0" y="438.0">7</text>
+    <rect class="cell in-row" x="434" y="412" width="52" height="52" />
+    <text class="digit" x="460.0" y="438.0">8</text>
+    <rect class="cell in-row" x="486" y="412" width="52" height="52" />
+    <rect class="cell" x="70" y="464" width="52" height="52" />
+    <rect class="cell" x="122" y="464" width="52" height="52" />
+    <text class="digit" x="148.0" y="490.0">4</text>
+    <rect class="cell" x="174" y="464" width="52" height="52" />
+    <rect class="cell in-box" x="226" y="464" width="52" height="52" />
+    <rect class="cell in-col" x="278" y="464" width="52" height="52" />
+    <rect class="cell in-box" x="330" y="464" width="52" height="52" />
+    <rect class="cell" x="382" y="464" width="52" height="52" />
+    <text class="digit" x="408.0" y="490.0">5</text>
+    <rect class="cell" x="434" y="464" width="52" height="52" />
+    <text class="digit" x="460.0" y="490.0">6</text>
+    <rect class="cell" x="486" y="464" width="52" height="52" />
+    <rect class="cell" x="70" y="516" width="52" height="52" />
+    <rect class="cell" x="122" y="516" width="52" height="52" />
+    <rect class="cell" x="174" y="516" width="52" height="52" />
+    <text class="digit" x="200.0" y="542.0">5</text>
+    <rect class="cell in-box" x="226" y="516" width="52" height="52" />
+    <text class="digit" x="252.0" y="542.0">9</text>
+    <rect class="cell in-col" x="278" y="516" width="52" height="52" />
+    <text class="digit" x="304.0" y="542.0">3</text>
+    <rect class="cell in-box" x="330" y="516" width="52" height="52" />
+    <rect class="cell" x="382" y="516" width="52" height="52" />
+    <rect class="cell" x="434" y="516" width="52" height="52" />
+    <rect class="cell" x="486" y="516" width="52" height="52" />
+    <text class="digit" x="512.0" y="542.0">1</text>
+    <line class="thick" x1="70" y1="100" x2="538" y2="100" />
+    <line class="thick" x1="70" y1="100" x2="70" y2="568" />
+    <line class="thick" x1="70" y1="256" x2="538" y2="256" />
+    <line class="thick" x1="226" y1="100" x2="226" y2="568" />
+    <line class="thick" x1="70" y1="412" x2="538" y2="412" />
+    <line class="thick" x1="382" y1="100" x2="382" y2="568" />
+    <line class="thick" x1="70" y1="568" x2="538" y2="568" />
+    <line class="thick" x1="538" y1="100" x2="538" y2="568" />
+  </svg>
+
+  <div class="masks">
+    <div class="mask"><span class="mask-name">digit</span><span class="bit head">1</span><span class="bit head">2</span><span class="bit head">3</span><span class="bit head">4</span><span class="bit head">5</span><span class="bit head">6</span><span class="bit head">7</span><span class="bit head">8</span><span class="bit head">9</span></div>
+    <div class="mask row"><span class="mask-name">row 7</span><span class="bit">·</span><span class="bit">·</span><span class="bit on">3</span><span class="bit on">4</span><span class="bit">·</span><span class="bit on">6</span><span class="bit on">7</span><span class="bit on">8</span><span class="bit">·</span></div>
+    <div class="mask col"><span class="mask-name">column 5</span><span class="bit on">1</span><span class="bit">·</span><span class="bit on">3</span><span class="bit on">4</span><span class="bit">·</span><span class="bit">·</span><span class="bit">·</span><span class="bit">·</span><span class="bit">·</span></div>
+    <div class="mask box"><span class="mask-name">box 8</span><span class="bit">·</span><span class="bit">·</span><span class="bit on">3</span><span class="bit on">4</span><span class="bit">·</span><span class="bit on">6</span><span class="bit">·</span><span class="bit">·</span><span class="bit on">9</span></div>
+    <div class="mask union"><span class="mask-name accent">candidates</span><span class="bit">·</span><span class="bit cand">2</span><span class="bit">·</span><span class="bit">·</span><span class="bit cand">5</span><span class="bit">·</span><span class="bit">·</span><span class="bit">·</span><span class="bit">·</span></div>
+  </div>
+
+  <div class="formula">ALL_DIGITS &amp; ~(rows[r] | cols[c] | boxes[b])<br>= <b>{2, 5}</b></div>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 09</span><span>sudoku candidates as bits</span></div>
+</body>
+</html>

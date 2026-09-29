@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · SQL Server 2025 regular expressions</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .query {
+    position: absolute;
+    left: 90px;
+    top: 80px;
+    width: 1020px;
+    border: 1px solid var(--ink-faint);
+    background: var(--panel);
+  }
+  .query .tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--ink-faint);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .query pre { padding: 16px 18px 18px; font: 18px/1.85 var(--mono); color: var(--ink-soft); }
+  .kw { color: var(--ink); font-weight: 600; }
+  .fn { color: var(--accent); font-weight: 600; }
+  .g1 { color: var(--ink); background: rgb(232 240 255 / 0.14); outline: 1px solid rgb(232 240 255 / 0.55); }
+  .g2 { color: var(--accent); background: rgb(255 138 91 / 0.14); outline: 1px solid var(--accent); }
+
+  .result {
+    position: absolute;
+    left: 90px;
+    top: 356px;
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  table {
+    border-collapse: collapse;
+    font-size: 19px;
+    background: var(--panel);
+  }
+  th, td { border: 1.5px solid var(--ink-soft); padding: 11px 22px; text-align: left; white-space: pre; }
+  th { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .after th, .after td { border-color: var(--accent); }
+  .after th { color: var(--accent); }
+  .after { background: rgb(255 138 91 / 0.08); }
+  .same { color: var(--ink-faint); }
+  .fixed { color: var(--accent); font-weight: 600; }
+  .arrow { display: grid; justify-items: center; gap: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); text-align: center; }
+  .arrow svg { width: 150px; height: 18px; overflow: visible; }
+  .legend { display: grid; gap: 14px; max-width: 250px; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+  .legend b { font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="query">
+    <div class="tab"><span>fix-postal-codes.sql</span><span>SQL Server 2025</span></div>
+<pre><span class="kw">UPDATE</span> dbo.Customers
+<span class="kw">SET</span> PostalCode = <span class="fn">REGEXP_REPLACE</span>(PostalCode, '^<span class="g1">(\d{4})</span>\s*-?\s*<span class="g2">(\d{3})</span>$', '<span class="g1">\1</span>-<span class="g2">\2</span>')
+<span class="kw">WHERE</span> <span class="fn">REGEXP_LIKE</span>(PostalCode, '^\d{4}\s*-?\s*\d{3}$');</pre>
+  </div>
+
+  <div class="result">
+    <table>
+      <tr><th>before</th></tr>
+      <tr><td>4000-322</td></tr>
+      <tr><td>1100148</td></tr>
+      <tr><td>4460 100</td></tr>
+    </table>
+
+    <div class="arrow">
+      <span>\1 - \2</span>
+      <svg viewBox="0 0 150 18"><path d="M2 9h140" stroke="#ff8a5b" stroke-width="1.5"/><path d="m136 3 8 6-8 6" fill="none" stroke="#ff8a5b" stroke-width="1.5"/></svg>
+    </div>
+
+    <table class="after">
+      <tr><th>after</th></tr>
+      <tr><td class="same">4000-322</td></tr>
+      <tr><td class="fixed">1100-148</td></tr>
+      <tr><td class="fixed">4460-100</td></tr>
+    </table>
+
+    <div class="legend">
+      <span><b>REGEXP_LIKE</b> finds the rows,</span>
+      <span><b class="accent">REGEXP_REPLACE</b> rewrites them with capture groups.</span>
+    </div>
+  </div>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 06</span><span>regular expressions in T-SQL</span></div>
+</body>
+</html>

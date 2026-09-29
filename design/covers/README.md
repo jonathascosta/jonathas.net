@@ -2,11 +2,11 @@
 
 The images on the site are rendered from the HTML templates in this folder, as a blueprint series that matches the site.
 
-| Template                                          | Output                                                            |
-| ------------------------------------------------- | ----------------------------------------------------------------- |
-| `salary-converter.html`, `sudoku.html`            | `src/assets/images/projects/*.webp`, from the screenshots in `screens/` |
-| `sql-ctes.html`, `mermaid-diagrams-chatgpt.html`  | `src/assets/images/articles/*.webp`                               |
-| `social-default.html`                             | `src/assets/images/social-default.webp`, the link preview of the home page |
+| Template                                                  | Output                                                            |
+| --------------------------------------------------------- | ----------------------------------------------------------------- |
+| `salary-converter.html`, `sudoku.html`                    | `src/assets/images/projects/*.webp`, from the screenshots in `screens/` |
+| One per article, named after it (`sql-ctes.html`, …)      | `src/assets/images/articles/*.webp`                               |
+| `social-default.html`                                     | `src/assets/images/social-default.webp`, the link preview of the home page |
 
 The architecture diagram in `src/assets/diagrams/` is shared by the home page and `social-default.html`.
 

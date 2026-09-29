@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover · OpenTelemetry and Grafana for ASP.NET Core</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg.pipeline { position: absolute; left: 0; top: 60px; width: 1200px; height: 620px; overflow: visible; }
+  svg text { font-family: var(--mono); fill: var(--ink); text-anchor: middle; }
+  .node rect { fill: #0c2440; stroke: rgb(232 240 255 / 0.85); stroke-width: 1.5; }
+  .node .title { font-size: 16px; font-weight: 600; }
+  .node .sub { font-size: 12px; letter-spacing: 0.04em; fill: var(--ink-soft); }
+  .primary rect { fill: #2a2c40; stroke: var(--accent); stroke-width: 2; }
+  .primary .title { fill: var(--accent); }
+  .edge { fill: none; stroke: rgb(232 240 255 / 0.6); stroke-width: 1.5; }
+  .edge.hot { stroke: var(--accent); stroke-width: 2; }
+  .edge-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; fill: var(--ink-soft); }
+  .edge-label.hot { fill: var(--accent); }
+  .code { font-size: 14px; fill: var(--ink-soft); text-anchor: start; }
+  .code .m { fill: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+  <svg class="pipeline" viewBox="0 0 1200 620">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10" fill="none" stroke="#e8f0ff" stroke-opacity=".6" stroke-width="1.5" />
+      </marker>
+      <marker id="arrow-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10" fill="none" stroke="#ff8a5b" stroke-width="1.5" />
+      </marker>
+    </defs>
+
+    <!-- App -->
+    <g class="node primary">
+      <rect x="60" y="250" width="220" height="100" rx="6" />
+      <text class="title" x="170" y="292">orders-api</text>
+      <text class="sub" x="170" y="318">ASP.NET Core</text>
+    </g>
+    <text class="code" x="60" y="400"><tspan>.AddOpenTelemetry()</tspan><tspan x="60" dy="22">.WithTracing(…)</tspan><tspan x="60" dy="22">.WithMetrics(…)</tspan><tspan x="60" dy="22" class="m">.UseOtlpExporter()</tspan></text>
+
+    <!-- App → Collector -->
+    <path class="edge hot" d="M280 300 H392" marker-end="url(#arrow-hot)" />
+    <text class="edge-label hot" x="336" y="286">OTLP</text>
+    <text class="edge-label hot" x="336" y="322">:4317</text>
+
+    <!-- Collector -->
+    <g class="node">
+      <rect x="400" y="250" width="220" height="100" rx="6" />
+      <text class="title" x="510" y="292">OTel Collector</text>
+      <text class="sub" x="510" y="318">batch · route</text>
+    </g>
+
+    <!-- Collector → stores -->
+    <path class="edge" d="M620 300 C 670 300, 670 140, 722 140" marker-end="url(#arrow)" />
+    <path class="edge" d="M620 300 H722" marker-end="url(#arrow)" />
+    <path class="edge" d="M620 300 C 670 300, 670 460, 722 460" marker-end="url(#arrow)" />
+
+    <g class="node">
+      <rect x="730" y="100" width="190" height="80" rx="6" />
+      <text class="title" x="825" y="134">Tempo</text>
+      <text class="sub" x="825" y="158">traces</text>
+    </g>
+    <g class="node">
+      <rect x="730" y="260" width="190" height="80" rx="6" />
+      <text class="title" x="825" y="294">Prometheus</text>
+      <text class="sub" x="825" y="318">metrics</text>
+    </g>
+    <g class="node">
+      <rect x="730" y="420" width="190" height="80" rx="6" />
+      <text class="title" x="825" y="454">Loki</text>
+      <text class="sub" x="825" y="478">logs</text>
+    </g>
+
+    <!-- Stores → Grafana -->
+    <path class="edge" d="M920 140 C 960 140, 960 300, 1002 300" marker-end="url(#arrow)" />
+    <path class="edge" d="M920 300 H1002" marker-end="url(#arrow)" />
+    <path class="edge" d="M920 460 C 960 460, 960 300, 1002 300" marker-end="url(#arrow)" />
+
+    <g class="node primary">
+      <rect x="1010" y="250" width="150" height="100" rx="6" />
+      <text class="title" x="1085" y="292">Grafana</text>
+      <text class="sub" x="1085" y="318">:3000</text>
+    </g>
+  </svg>
+
+  <div class="sheet"><span><b>jonathas.net</b></span><span>fig. 08</span><span>OpenTelemetry pipeline</span></div>
+</body>
+</html>
