@@ -80,8 +80,8 @@ export const experience: Role[] = [
     period: '2026 – present',
     industries: ['veterinary'],
     summary:
-      'On a direct contract, I’ve shipped 23 features across Univet’s warehouse system and Cockpit, a GMP app for e-signed batch release and environmental monitoring, built the deployment tool every release goes through, and added 212 automated tests.',
-    stack: ['WMS', 'GMP', 'E-signatures', 'Test automation'],
+      'I’ve shipped 23 features across Univet’s warehouse system and Cockpit, built the deployment tool every release goes through, and added 212 automated tests.',
+    stack: ['WMS', 'E-signatures', 'Test automation'],
   },
   {
     role: 'Senior Software Engineer',
