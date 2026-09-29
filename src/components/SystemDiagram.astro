@@ -4,12 +4,12 @@
 import wideSvg from '../assets/diagrams/system-wide.svg?raw';
 import compactSvg from '../assets/diagrams/system-compact.svg?raw';
 
-const stripComment = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/, '');
+const stripComments = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/g, '');
 ---
 
 <figure class="system-diagram">
-  <Fragment set:html={stripComment(wideSvg)} />
-  <Fragment set:html={stripComment(compactSvg)} />
+  <Fragment set:html={stripComments(wideSvg)} />
+  <Fragment set:html={stripComments(compactSvg)} />
   <div class="sheet" aria-hidden="true"><span><b>jonathas.net</b></span><span>fig. 00</span><span>systems I build</span></div>
 </figure>
 
@@ -78,6 +78,21 @@ const stripComment = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/, '');
     fill: var(--bp-accent);
   }
 
+  /* Dashed boundaries for the clouds (Azure, AWS). */
+  .system-diagram :global(.zones rect) {
+    fill: rgb(232 240 255 / 0.035);
+    stroke: rgb(232 240 255 / 0.42);
+    stroke-width: 1.25;
+    stroke-dasharray: 8 6;
+  }
+
+  .system-diagram :global(.zones text) {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    fill: var(--bp-ink-soft);
+  }
+
   .system-diagram :global(.edges path) {
     fill: none;
     stroke: rgb(232 240 255 / 0.6);
@@ -132,6 +147,13 @@ const stripComment = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/, '');
   .sheet b {
     font-weight: 600;
     color: var(--bp-ink);
+  }
+
+  /* The title block gets its own strip below the drawing, so it never covers a node. */
+  @media (min-width: 64.0625rem) {
+    .system-diagram {
+      padding-bottom: 3rem;
+    }
   }
 
   @media (max-width: 64rem) {

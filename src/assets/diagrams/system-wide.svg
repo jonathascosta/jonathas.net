@@ -1,48 +1,72 @@
 <!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
 <svg class="arch arch-wide" viewBox="0 0 1200 520" role="img" aria-labelledby="arch-title">
-  <title id="arch-title">Diagram: clients call an API gateway and a .NET 8 API that stores data in SQL Server and Cosmos DB, publishes events to AWS Lambda, is deployed by GitHub Actions and monitored in Grafana.</title>
+  <title id="arch-title">Diagram: on Azure, clients call an API gateway and a .NET API that stores data in SQL Server, Cosmos DB and Blob Storage, works with AI agents and hands slow work to Service Bus queues. AWS Lambda processes those events and calls external integrations. GitHub Actions deploys the API and Grafana monitors it.</title>
   <defs>
-    <path id="j-sql" d="M216 260H600L708 236C735 236 735 176 762 176H846"/>
-    <path id="j-cosmos" d="M216 260H600L708 284C735 284 735 344 762 344H846"/>
-    <path id="j-lambda" d="M600 260V448H708C735 448 735 368 762 368H846"/>
-    <path id="j-metrics" d="M600 260H1068"/>
-    <path id="j-deploy" d="M600 72V260"/>
+    <path id="j-sql" d="M150 258H570C600 258 600 158 630 158H710"/>
+    <path id="j-cosmos" d="M150 258H570C600 258 600 234 630 234H710"/>
+    <path id="j-blob" d="M150 258H570C600 258 600 310 630 310H710"/>
+    <path id="j-ai" d="M420 258V326C420 372 275 360 275 404V436"/>
+    <path id="j-queue" d="M480 258V436H840C870 436 870 326 920 326H1000"/>
+    <path id="j-integrations" d="M1000 326V164"/>
+    <path id="j-metrics" d="M530 258V46H1000"/>
+    <path id="j-deploy" d="M415 46V258"/>
   </defs>
 
-  <g class="edges">
-    <path d="M216 260H270"/>
-    <path d="M438 260H492"/>
-    <path d="M708 236C735 236 735 176 762 176"/>
-    <path d="M708 284C735 284 735 344 762 344"/>
-    <path d="M600 324V412"/>
-    <path d="M708 448C735 448 735 368 762 368"/>
-    <path class="ops" d="M600 108V196"/>
-    <path class="ops" d="M708 260H984"/>
-  </g>
+  <!-- Shifted so the drawing (x 20–1100) sits in the middle of the 1200-wide canvas. -->
+  <g transform="translate(40 0)">
+    <g class="zones">
+      <rect x="180" y="104" width="660" height="396" rx="16"/>
+      <text x="200" y="130">AZURE</text>
+      <rect x="900" y="262" width="200" height="116" rx="14"/>
+      <text x="916" y="284">AWS</text>
+    </g>
 
-  <g class="edge-labels">
-    <text x="243" y="244" text-anchor="middle">HTTPS</text>
-    <text x="624" y="368" text-anchor="start">EVENTS</text>
-    <text x="624" y="152" text-anchor="start">DEPLOY</text>
-    <text x="846" y="252" text-anchor="middle">METRICS</text>
-  </g>
+    <g class="edges">
+      <path d="M150 258H200"/>
+      <path d="M340 258H390"/>
+      <path d="M570 258C600 258 600 158 630 158"/>
+      <path d="M570 258C600 258 600 234 630 234"/>
+      <path d="M570 258C600 258 600 310 630 310"/>
+      <path d="M420 326C420 372 275 360 275 404"/>
+      <path d="M480 326V404"/>
+      <path d="M555 436H840C870 436 870 326 920 326"/>
+      <path d="M1000 294V196"/>
+      <path class="ops" d="M415 76V190"/>
+      <path class="ops" d="M530 190V46H920"/>
+    </g>
 
-  <g class="packets">
-    <circle r="4.5"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#j-sql"/></animateMotion></circle>
-    <circle r="4.5"><animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite"><mpath href="#j-cosmos"/></animateMotion></circle>
-    <circle r="4.5"><animateMotion dur="3.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#j-lambda"/></animateMotion></circle>
-    <circle class="ops" r="3.5"><animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite"><mpath href="#j-metrics"/></animateMotion></circle>
-    <circle class="ops" r="3.5"><animateMotion dur="5s" begin="2s" repeatCount="indefinite"><mpath href="#j-deploy"/></animateMotion></circle>
-  </g>
+    <g class="edge-labels">
+      <text x="427" y="152" text-anchor="start">DEPLOY</text>
+      <text x="725" y="36" text-anchor="middle">METRICS</text>
+      <text x="492" y="370" text-anchor="start">ASYNC</text>
+      <text x="700" y="424" text-anchor="middle">EVENTS</text>
+      <text x="1012" y="240" text-anchor="start">APIS</text>
+    </g>
 
-  <g class="nodes">
-    <g><rect x="492" y="36" width="216" height="72" rx="10"/><text x="600" y="66">GitHub Actions</text><text class="sub" x="600" y="88">ci · cd</text></g>
-    <g><rect x="48" y="212" width="168" height="96" rx="10"/><text x="132" y="254">Clients</text><text class="sub" x="132" y="278">web · mobile</text></g>
-    <g><rect x="270" y="212" width="168" height="96" rx="10"/><text x="354" y="254">API Gateway</text><text class="sub" x="354" y="278">rest · https</text></g>
-    <g class="primary"><rect x="492" y="196" width="216" height="128" rx="12"/><text x="600" y="254">.NET 8 API</text><text class="sub" x="600" y="280">asp.net core</text></g>
-    <g><rect x="492" y="412" width="216" height="72" rx="10"/><text x="600" y="442">AWS Lambda</text><text class="sub" x="600" y="464">events · batch</text></g>
-    <g><rect x="762" y="132" width="168" height="88" rx="10"/><text x="846" y="170">SQL Server</text><text class="sub" x="846" y="194">relational</text></g>
-    <g><rect x="762" y="300" width="168" height="88" rx="10"/><text x="846" y="338">Cosmos DB</text><text class="sub" x="846" y="362">documents</text></g>
-    <g><rect x="984" y="216" width="168" height="88" rx="10"/><text x="1068" y="254">Grafana</text><text class="sub" x="1068" y="278">dashboards</text></g>
+    <g class="packets">
+      <circle r="4.5"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#j-sql"/></animateMotion></circle>
+      <circle r="4.5"><animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite"><mpath href="#j-cosmos"/></animateMotion></circle>
+      <circle r="4.5"><animateMotion dur="3.2s" begin="2.2s" repeatCount="indefinite"><mpath href="#j-blob"/></animateMotion></circle>
+      <circle r="4.5"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite"><mpath href="#j-ai"/></animateMotion></circle>
+      <circle r="4.5"><animateMotion dur="4s" begin="0.3s" repeatCount="indefinite"><mpath href="#j-queue"/></animateMotion></circle>
+      <circle r="4.5"><animateMotion dur="2s" begin="1.5s" repeatCount="indefinite"><mpath href="#j-integrations"/></animateMotion></circle>
+      <circle class="ops" r="3.5"><animateMotion dur="3s" begin="0.4s" repeatCount="indefinite"><mpath href="#j-metrics"/></animateMotion></circle>
+      <circle class="ops" r="3.5"><animateMotion dur="5s" begin="2s" repeatCount="indefinite"><mpath href="#j-deploy"/></animateMotion></circle>
+    </g>
+
+    <g class="nodes">
+      <g><rect x="330" y="16" width="170" height="60" rx="10"/><text x="415" y="42">GitHub Actions</text><text class="sub" x="415" y="62">ci · cd</text></g>
+      <g><rect x="920" y="16" width="160" height="60" rx="10"/><text x="1000" y="42">Grafana</text><text class="sub" x="1000" y="62">dashboards</text></g>
+      <g><rect x="20" y="222" width="130" height="72" rx="10"/><text x="85" y="252">Clients</text><text class="sub" x="85" y="274">web · mobile</text></g>
+      <g><rect x="200" y="222" width="140" height="72" rx="10"/><text x="270" y="252">API Gateway</text><text class="sub" x="270" y="274">rest · https</text></g>
+      <g class="primary"><rect x="390" y="190" width="180" height="136" rx="12"/><text x="480" y="252">.NET API</text><text class="sub" x="480" y="276">asp.net core</text></g>
+      <g><rect x="630" y="128" width="160" height="60" rx="10"/><text x="710" y="154">SQL Server</text><text class="sub" x="710" y="174">relational</text></g>
+      <g><rect x="630" y="204" width="160" height="60" rx="10"/><text x="710" y="230">Cosmos DB</text><text class="sub" x="710" y="250">documents</text></g>
+      <g><rect x="630" y="280" width="160" height="60" rx="10"/><text x="710" y="306">Blob Storage</text><text class="sub" x="710" y="326">files</text></g>
+      <g><rect x="200" y="404" width="150" height="64" rx="10"/><text x="275" y="431">AI agents</text><text class="sub" x="275" y="452">llm · tools</text></g>
+      <g><rect x="405" y="404" width="150" height="64" rx="10"/><text x="480" y="431">Service Bus</text><text class="sub" x="480" y="452">queues · async</text></g>
+      <g><rect x="920" y="132" width="160" height="64" rx="10"/><text x="1000" y="159">Integrations</text><text class="sub" x="1000" y="180">erp · partner apis</text></g>
+      <g><rect x="920" y="294" width="160" height="64" rx="10"/><text x="1000" y="321">AWS Lambda</text><text class="sub" x="1000" y="342">events · batch</text></g>
+    </g>
   </g>
 </svg>
