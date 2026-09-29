@@ -1,6 +1,6 @@
 <!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
 <svg class="arch arch-wide" viewBox="0 0 1200 520" role="img" aria-labelledby="arch-title">
-  <title id="arch-title">Diagram: on Azure, clients call an API gateway and a .NET 8 API that stores data in SQL Server, Cosmos DB and Blob Storage, works with AI agents and hands slow work to Service Bus queues. AWS Lambda processes those events and calls external integrations. GitHub Actions deploys the API and Grafana monitors it.</title>
+  <title id="arch-title">Diagram: on Azure, clients call an API gateway and a .NET API that stores data in SQL Server, Cosmos DB and Blob Storage, works with AI agents and hands slow work to Service Bus queues. AWS Lambda processes those events and calls external integrations. GitHub Actions deploys the API and Grafana monitors it.</title>
   <defs>
     <path id="j-sql" d="M150 258H570C600 258 600 158 630 158H710"/>
     <path id="j-cosmos" d="M150 258H570C600 258 600 234 630 234H710"/>
@@ -59,7 +59,7 @@
       <g><rect x="920" y="16" width="160" height="60" rx="10"/><text x="1000" y="42">Grafana</text><text class="sub" x="1000" y="62">dashboards</text></g>
       <g><rect x="20" y="222" width="130" height="72" rx="10"/><text x="85" y="252">Clients</text><text class="sub" x="85" y="274">web · mobile</text></g>
       <g><rect x="200" y="222" width="140" height="72" rx="10"/><text x="270" y="252">API Gateway</text><text class="sub" x="270" y="274">rest · https</text></g>
-      <g class="primary"><rect x="390" y="190" width="180" height="136" rx="12"/><text x="480" y="252">.NET 8 API</text><text class="sub" x="480" y="276">asp.net core</text></g>
+      <g class="primary"><rect x="390" y="190" width="180" height="136" rx="12"/><text x="480" y="252">.NET API</text><text class="sub" x="480" y="276">asp.net core</text></g>
       <g><rect x="630" y="128" width="160" height="60" rx="10"/><text x="710" y="154">SQL Server</text><text class="sub" x="710" y="174">relational</text></g>
       <g><rect x="630" y="204" width="160" height="60" rx="10"/><text x="710" y="230">Cosmos DB</text><text class="sub" x="710" y="250">documents</text></g>
       <g><rect x="630" y="280" width="160" height="60" rx="10"/><text x="710" y="306">Blob Storage</text><text class="sub" x="710" y="326">files</text></g>

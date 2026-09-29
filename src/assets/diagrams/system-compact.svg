@@ -1,5 +1,5 @@
 <!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
-<svg class="arch arch-compact" viewBox="0 0 360 404" role="img" aria-label="Diagram: on Azure, clients call an API gateway and a .NET 8 API backed by SQL Server, Cosmos DB and Blob Storage, with AI agents and Service Bus queues.">
+<svg class="arch arch-compact" viewBox="0 0 360 404" role="img" aria-label="Diagram: on Azure, clients call an API gateway and a .NET API backed by SQL Server, Cosmos DB and Blob Storage, with AI agents and Service Bus queues.">
   <defs>
     <path id="jm-sql" d="M180 36V240H72V280"/>
     <path id="jm-blob" d="M180 36V240H288V280"/>
@@ -26,7 +26,7 @@
   <g class="nodes">
     <g><rect x="120" y="12" width="120" height="48" rx="8"/><text x="180" y="34">Clients</text><text class="sub" x="180" y="51">web · mobile</text></g>
     <g><rect x="120" y="88" width="120" height="48" rx="8"/><text x="180" y="110">Gateway</text><text class="sub" x="180" y="127">https</text></g>
-    <g class="primary"><rect x="100" y="160" width="160" height="56" rx="8"/><text x="180" y="185">.NET 8 API</text><text class="sub" x="180" y="204">asp.net core</text></g>
+    <g class="primary"><rect x="100" y="160" width="160" height="56" rx="8"/><text x="180" y="185">.NET API</text><text class="sub" x="180" y="204">asp.net core</text></g>
     <g><rect x="28" y="256" width="88" height="52" rx="8"/><text x="72" y="279">SQL</text><text class="sub" x="72" y="297">server</text></g>
     <g><rect x="136" y="256" width="88" height="52" rx="8"/><text x="180" y="279">Cosmos</text><text class="sub" x="180" y="297">db</text></g>
     <g><rect x="244" y="256" width="88" height="52" rx="8"/><text x="288" y="279">Blob</text><text class="sub" x="288" y="297">storage</text></g>
