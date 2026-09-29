@@ -35,7 +35,9 @@ tags: [SQL]
 The article, in Markdown.
 ```
 
-Code blocks are highlighted at build time, with colours for both themes. The article shows up on the home page, in the RSS feed and in the sitemap automatically.
+Code blocks are highlighted at build time, with colours for both themes, and wide tables scroll sideways on phones. The article shows up on the articles page (`/articles.html`), on the home page while it's one of the four newest, in the RSS feed and in the sitemap automatically.
+
+Every article gets an ad slot after the text. Articles long enough also get one in the middle, before the `h2` nearest the halfway point; the Markdown plugins that place it are in `src/lib/markdown-plugins.ts`.
 
 The cover images are rendered from HTML templates in [`design/covers/`](design/covers/README.md), which also explains how to make one for a new article.
 
@@ -44,6 +46,7 @@ The cover images are rendered from HTML templates in [`design/covers/`](design/c
 | What                                         | Where                     |
 | -------------------------------------------- | ------------------------- |
 | Name, job title, social links and navigation | `src/data/site.ts`        |
+| AdSense publisher id and ad units            | `ADSENSE` in `src/data/site.ts` |
 | Portfolio projects                           | `src/data/projects.ts`    |
 | Career journey                               | `src/data/experience.ts`  |
 | Colours, typography and spacing              | `src/styles/global.css`   |
@@ -51,6 +54,12 @@ The cover images are rendered from HTML templates in [`design/covers/`](design/c
 | Cover images                                 | `design/covers/`          |
 | Fonts                                        | `astro.config.mjs`        |
 | Files served as-is (`CNAME`, `ads.txt`, …)   | `public/`                 |
+
+## Ads
+
+`src/components/BaseHead.astro` loads the AdSense script on every page, and `src/scripts/ads.ts` fills each ad slot once it has a width. Anywhere but www.jonathas.net (the dev server, previews), the slots request test ads, which don't count as impressions. A slot that AdSense leaves empty, or that an ad blocker stops, collapses instead of leaving a gap.
+
+Consent in the EEA, the UK and Switzerland is handled by Google's consent message, set up under **Privacy & messaging** in AdSense.
 
 ## Deployment
 

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Icon from '../components/Icon.astro';
+import { getArticles } from '../lib/articles';
+
+const articles = await getArticles();
+---
+
+<BaseLayout
+  title="Articles"
+  description="Articles by Jonathas Costa on .NET and C#, SQL Server, AWS Lambda, observability with OpenTelemetry, and the apps on this site."
+>
+  <section class="articles container" aria-labelledby="articles-title">
+    <header class="articles-header">
+      <p class="eyebrow"><span class="eyebrow-index">{articles.length}</span>Articles</p>
+      <h1 id="articles-title" class="display">All articles</h1>
+      <p class="intro">Practical write-ups on the technologies I work with: .NET and C#, SQL Server, AWS, observability, and the apps on this site. Newest first.</p>
+      <a class="feed-link" href="/rss.xml"><Icon name="rss" size={16} /> RSS feed</a>
+    </header>
+
+    <ol class="article-list" role="list">
+      {
+        articles.map((article) => (
+          <li>
+            <ArticleCard article={article} as="h2" />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles {
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .articles-header {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
+  }
+
+  .intro {
+    max-width: 38rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+</style>

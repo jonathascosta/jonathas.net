@@ -9,7 +9,17 @@ export const SITE = {
     "I'm Jonathas Costa, a Senior Software Engineer in Porto, Portugal, who loves transforming ideas into reality. Explore my projects, articles and career journey.",
   locale: 'en_US',
   lang: 'en',
-  adsenseClient: 'ca-pub-2968705923738055',
+} as const;
+
+/** Google AdSense: the publisher id, and the display units shown in articles. */
+export const ADSENSE = {
+  client: 'ca-pub-2968705923738055',
+  slots: {
+    /** In the middle of the text, placed by src/lib/markdown-plugins.ts. */
+    inArticle: '4194994631',
+    /** After the text. */
+    afterArticle: '4194994631',
+  },
 } as const;
 
 export const SOCIAL = {

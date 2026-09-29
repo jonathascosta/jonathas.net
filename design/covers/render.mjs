@@ -15,6 +15,11 @@ const COVERS = {
   sudoku: { size: [1200, 750], out: 'src/assets/images/projects/sudoku.webp' },
   'sql-ctes': { size: [1200, 750], out: 'src/assets/images/articles/sql-ctes.webp' },
   'mermaid-diagrams-chatgpt': { size: [1200, 750], out: 'src/assets/images/articles/mermaid-diagrams-chatgpt.webp' },
+  'dotnet-8-to-dotnet-10': { size: [1200, 750], out: 'src/assets/images/articles/dotnet-8-to-dotnet-10.webp' },
+  'sql-server-2025-regular-expressions': { size: [1200, 750], out: 'src/assets/images/articles/sql-server-2025-regular-expressions.webp' },
+  'dotnet-lambda-cold-starts': { size: [1200, 750], out: 'src/assets/images/articles/dotnet-lambda-cold-starts.webp' },
+  'opentelemetry-aspnet-core-grafana': { size: [1200, 750], out: 'src/assets/images/articles/opentelemetry-aspnet-core-grafana.webp' },
+  'sudoku-generator-typescript': { size: [1200, 750], out: 'src/assets/images/articles/sudoku-generator-typescript.webp' },
   'social-default': { size: [1200, 630], out: 'src/assets/images/social-default.webp' },
 };
 

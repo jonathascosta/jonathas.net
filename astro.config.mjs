@@ -1,6 +1,9 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { satteri } from '@astrojs/markdown-satteri';
+import { ADSENSE } from './src/data/site';
+import { inArticleAd, scrollTables } from './src/lib/markdown-plugins';
 
 export default defineConfig({
   site: 'https://www.jonathas.net',
@@ -33,8 +36,10 @@ export default defineConfig({
   },
 
   markdown: {
+    processor: satteri({ hastPlugins: [scrollTables, inArticleAd(ADSENSE.slots.inArticle)] }),
     shikiConfig: {
-      themes: { light: 'github-light', dark: 'github-dark' },
+      // The -default variants (GitHub's current themes) keep every token above 4.5:1 contrast.
+      themes: { light: 'github-light-default', dark: 'github-dark-default' },
       // Colours come from CSS variables so code blocks follow the site theme toggle.
       defaultColor: false,
     },
