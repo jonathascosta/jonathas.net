@@ -1,24 +1,36 @@
 <!-- Blueprint diagram of the systems on jonathas.net. Styled by src/components/SystemDiagram.astro and design/covers/base.css. -->
-<svg class="arch arch-compact" viewBox="0 0 360 240" role="img" aria-label="Diagram: clients call an API gateway and a .NET 8 API backed by SQL Server and Cosmos DB.">
+<svg class="arch arch-compact" viewBox="0 0 360 404" role="img" aria-label="Diagram: on Azure, clients call an API gateway and a .NET 8 API backed by SQL Server, Cosmos DB and Blob Storage, with AI agents and Service Bus queues.">
   <defs>
-    <path id="jm-sql" d="M62 56H270V88C270 124 180 116 180 152V184"/>
-    <path id="jm-cosmos" d="M62 56H298V184"/>
+    <path id="jm-sql" d="M180 36V240H72V280"/>
+    <path id="jm-blob" d="M180 36V240H288V280"/>
+    <path id="jm-ai" d="M180 188H18V352H102"/>
+    <path id="jm-queue" d="M180 188H342V352H258"/>
   </defs>
+  <g class="zones">
+    <rect x="6" y="72" width="348" height="324" rx="14"/>
+    <text x="20" y="94">AZURE</text>
+  </g>
   <g class="edges">
-    <path d="M112 56H130"/>
-    <path d="M230 56H248"/>
-    <path d="M298 88V152"/>
-    <path d="M270 88C270 124 180 116 180 152"/>
+    <path d="M180 60V88"/>
+    <path d="M180 136V160"/>
+    <path d="M180 216V240M72 240H288M72 240V256M180 240V256M288 240V256"/>
+    <path d="M100 188H18V352H28"/>
+    <path d="M260 188H342V352H332"/>
   </g>
   <g class="packets">
-    <circle r="3.5"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#jm-cosmos"/></animateMotion></circle>
-    <circle r="3.5"><animateMotion dur="2.8s" begin="1.4s" repeatCount="indefinite"><mpath href="#jm-sql"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#jm-sql"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="3s" begin="1.5s" repeatCount="indefinite"><mpath href="#jm-blob"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="2.6s" begin="0.7s" repeatCount="indefinite"><mpath href="#jm-ai"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="2.6s" begin="2s" repeatCount="indefinite"><mpath href="#jm-queue"/></animateMotion></circle>
   </g>
   <g class="nodes">
-    <g><rect x="12" y="24" width="100" height="64" rx="8"/><text x="62" y="52">Clients</text><text class="sub" x="62" y="70">web</text></g>
-    <g><rect x="130" y="24" width="100" height="64" rx="8"/><text x="180" y="52">Gateway</text><text class="sub" x="180" y="70">https</text></g>
-    <g class="primary"><rect x="248" y="24" width="100" height="64" rx="8"/><text x="298" y="52">.NET 8</text><text class="sub" x="298" y="70">api</text></g>
-    <g><rect x="130" y="152" width="100" height="64" rx="8"/><text x="180" y="180">SQL</text><text class="sub" x="180" y="198">server</text></g>
-    <g><rect x="248" y="152" width="100" height="64" rx="8"/><text x="298" y="180">Cosmos</text><text class="sub" x="298" y="198">db</text></g>
+    <g><rect x="120" y="12" width="120" height="48" rx="8"/><text x="180" y="34">Clients</text><text class="sub" x="180" y="51">web · mobile</text></g>
+    <g><rect x="120" y="88" width="120" height="48" rx="8"/><text x="180" y="110">Gateway</text><text class="sub" x="180" y="127">https</text></g>
+    <g class="primary"><rect x="100" y="160" width="160" height="56" rx="8"/><text x="180" y="185">.NET 8 API</text><text class="sub" x="180" y="204">asp.net core</text></g>
+    <g><rect x="28" y="256" width="88" height="52" rx="8"/><text x="72" y="279">SQL</text><text class="sub" x="72" y="297">server</text></g>
+    <g><rect x="136" y="256" width="88" height="52" rx="8"/><text x="180" y="279">Cosmos</text><text class="sub" x="180" y="297">db</text></g>
+    <g><rect x="244" y="256" width="88" height="52" rx="8"/><text x="288" y="279">Blob</text><text class="sub" x="288" y="297">storage</text></g>
+    <g><rect x="28" y="328" width="148" height="48" rx="8"/><text x="102" y="350">AI agents</text><text class="sub" x="102" y="367">llm · tools</text></g>
+    <g><rect x="184" y="328" width="148" height="48" rx="8"/><text x="258" y="350">Service Bus</text><text class="sub" x="258" y="367">queues</text></g>
   </g>
 </svg>
