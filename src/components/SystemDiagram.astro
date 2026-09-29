@@ -4,12 +4,12 @@
 import wideSvg from '../assets/diagrams/system-wide.svg?raw';
 import compactSvg from '../assets/diagrams/system-compact.svg?raw';
 
-const stripComment = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/, '');
+const stripComments = (svg: string) => svg.replace(/<!--[\s\S]*?-->\s*/g, '');
 ---
 
 <figure class="system-diagram">
-  <Fragment set:html={stripComment(wideSvg)} />
-  <Fragment set:html={stripComment(compactSvg)} />
+  <Fragment set:html={stripComments(wideSvg)} />
+  <Fragment set:html={stripComments(compactSvg)} />
   <div class="sheet" aria-hidden="true"><span><b>jonathas.net</b></span><span>fig. 00</span><span>systems I build</span></div>
 </figure>
 
