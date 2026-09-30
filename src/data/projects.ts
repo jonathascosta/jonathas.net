@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import casinoGames from '../assets/images/projects/casino-games.webp';
 import salaryConverter from '../assets/images/projects/salary-converter.webp';
 import sudoku from '../assets/images/projects/sudoku.webp';
 
@@ -9,9 +10,21 @@ export interface Project {
   image: ImageMetadata;
   imageAlt: string;
   tags: string[];
+  /** Shown before the tags while the project is unfinished. */
+  status?: string;
 }
 
 export const projects: Project[] = [
+  {
+    title: 'Original Table Games',
+    description:
+      'Four original casino table games: the player rolls the dice and the dealer deals the cards. Three are ready to play with virtual chips, their math proven exactly and by simulation.',
+    url: 'https://jonathascosta.github.io/CasinoGames/',
+    image: casinoGames,
+    imageAlt: 'Screenshot of the Original Table Games lobby: Entre Dados, Alvo Móvel and Espelho open to play, Trancar in development, and a balance in virtual chips',
+    tags: ['TypeScript', 'PixiJS'],
+    status: 'In development',
+  },
   {
     title: 'Salary Converter',
     description:
