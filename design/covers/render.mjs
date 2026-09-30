@@ -13,6 +13,7 @@ const root = resolve(here, '../..');
 const COVERS = {
   'salary-converter': { size: [1200, 750], out: 'src/assets/images/projects/salary-converter.webp' },
   sudoku: { size: [1200, 750], out: 'src/assets/images/projects/sudoku.webp' },
+  'casino-games': { size: [1200, 750], out: 'src/assets/images/projects/casino-games.webp' },
   'sql-ctes': { size: [1200, 750], out: 'src/assets/images/articles/sql-ctes.webp' },
   'mermaid-diagrams-chatgpt': { size: [1200, 750], out: 'src/assets/images/articles/mermaid-diagrams-chatgpt.webp' },
   'dotnet-8-to-dotnet-10': { size: [1200, 750], out: 'src/assets/images/articles/dotnet-8-to-dotnet-10.webp' },
