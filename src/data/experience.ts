@@ -8,6 +8,7 @@ import train from '../assets/icons/industries/train.png';
 import handbag from '../assets/icons/industries/fashion.png';
 import chart from '../assets/icons/industries/finance.png';
 import haulTruck from '../assets/icons/industries/mining.png';
+import padlock from '../assets/icons/industries/confidential.png';
 
 export interface Industry {
   label: string;
@@ -60,6 +61,10 @@ export const industries = {
     label: 'Mining',
     icon: haulTruck,
   },
+  confidential: {
+    label: 'Confidential',
+    icon: padlock,
+  },
 } satisfies Record<string, Industry>;
 
 export type IndustryKey = keyof typeof industries;
@@ -75,13 +80,13 @@ export interface Role {
 
 export const experience: Role[] = [
   {
-    role: 'Software Engineer',
-    company: 'Univet',
+    role: 'Freelance Software Engineer',
+    company: 'Confidential client',
     period: '2026 – present',
-    industries: ['veterinary'],
+    industries: ['confidential'],
     summary:
-      'I’ve shipped 23 features across Univet’s warehouse system and Cockpit, built the deployment tool every release goes through, and added 212 automated tests.',
-    stack: ['WMS', 'E-signatures', 'Test automation'],
+      'Freelance engagement under a confidentiality agreement: I build and evolve the client’s internal systems, from new features to releases and automated tests.',
+    stack: ['Internal systems', 'CI/CD', 'Test automation'],
   },
   {
     role: 'Senior Software Engineer',

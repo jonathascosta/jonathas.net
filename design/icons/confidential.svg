@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Confidential: a padlock -->
+  <path d="M160 236V168a96 96 0 0 1 192 0v68" />
+  <rect x="104" y="236" width="304" height="236" rx="32" />
+  <circle cx="256" cy="334" r="26" />
+  <path d="M256 360v44" />
+</svg>
