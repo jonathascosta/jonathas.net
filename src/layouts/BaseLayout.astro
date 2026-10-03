@@ -22,8 +22,12 @@ const { lang = SITE.lang, ...head } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <script>
-      import '../scripts/ads';
-    </script>
+    {
+      head.ads !== false && (
+        <script>
+          import '../scripts/ads';
+        </script>
+      )
+    }
   </body>
 </html>

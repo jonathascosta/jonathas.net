@@ -4,6 +4,7 @@ import { ARROWS } from '../../data/arrows';
 ---
 
 <BaseLayout
+  ads={false}
   lang="pt-BR"
   title="Arrows: Tap Puzzle"
   description="Arrows é um quebra-cabeça calmo e inteligente para iPhone: tire as flechas do tabuleiro, uma a uma. Suporte e privacidade."
@@ -20,7 +21,7 @@ import { ARROWS } from '../../data/arrows';
       <ul>
         <li>Níveis sem fim, do fácil ao muito difícil, com tabuleiros maiores à medida que você avança.</li>
         <li>Um desafio novo todo dia e uma liga para subir.</li>
-        <li>Eventos de temporada com tabuleiros desenhados como figuras.</li>
+        <li>Eventos por tempo limitado com tabuleiros desenhados como figuras.</li>
       </ul>
 
       <h2>Suporte</h2>
@@ -31,26 +32,3 @@ import { ARROWS } from '../../data/arrows';
     </div>
   </article>
 </BaseLayout>
-
-<style>
-  .policy {
-    max-width: var(--prose-width);
-    padding-top: clamp(2.5rem, 7vw, 5rem);
-  }
-
-  .policy-header {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: clamp(2rem, 5vw, 3rem);
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
-  }
-
-  .policy-meta {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--text-subtle);
-  }
-</style>

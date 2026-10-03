@@ -47,6 +47,7 @@ The cover images are rendered from HTML templates in [`design/covers/`](design/c
 | -------------------------------------------- | ------------------------- |
 | Name, job title, social links and navigation | `src/data/site.ts`        |
 | AdSense publisher id and ad units            | `ADSENSE` in `src/data/site.ts` |
+| Arrows support e-mail and policy date        | `src/data/arrows.ts` (the policy changes with Arrows' `apps/game/privacy.html`) |
 | Portfolio projects                           | `src/data/projects.ts`    |
 | Career journey                               | `src/data/experience.ts`  |
 | Colours, typography and spacing              | `src/styles/global.css`   |

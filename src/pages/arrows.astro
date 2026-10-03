@@ -4,6 +4,7 @@ import { ARROWS } from '../data/arrows';
 ---
 
 <BaseLayout
+  ads={false}
   title="Arrows: Tap Puzzle"
   description="Arrows is a calm, clever puzzle for iPhone: tap the arrows out, one by one, and clear the board. Support and privacy."
 >
@@ -19,7 +20,7 @@ import { ARROWS } from '../data/arrows';
       <ul>
         <li>Endless levels, from easy to super hard, with bigger boards as you climb.</li>
         <li>A new daily challenge every day, and a league to climb.</li>
-        <li>Seasonal events with boards drawn as pictures.</li>
+        <li>Time-limited events with boards drawn as pictures.</li>
       </ul>
 
       <h2>Support</h2>
@@ -30,26 +31,3 @@ import { ARROWS } from '../data/arrows';
     </div>
   </article>
 </BaseLayout>
-
-<style>
-  .policy {
-    max-width: var(--prose-width);
-    padding-top: clamp(2.5rem, 7vw, 5rem);
-  }
-
-  .policy-header {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: clamp(2rem, 5vw, 3rem);
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
-  }
-
-  .policy-meta {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--text-subtle);
-  }
-</style>
