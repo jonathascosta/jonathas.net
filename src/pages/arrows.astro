@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ARROWS } from '../data/arrows';
+---
+
+<BaseLayout
+  ads={false}
+  title="Arrows: Tap Puzzle"
+  description="Arrows is a calm, clever puzzle for iPhone: tap the arrows out, one by one, and clear the board. Support and privacy."
+>
+  <article class="policy container">
+    <header class="policy-header">
+      <p class="eyebrow">An iPhone game</p>
+      <h1 class="display">Arrows: Tap Puzzle</h1>
+      <p class="policy-meta"><a href="/arrows/pt.html" hreflang="pt-BR" lang="pt-BR">Em português</a></p>
+    </header>
+
+    <div class="prose">
+      <p>Arrows is a calm, clever puzzle. The board is full of arrow-shaped paths. Tap an arrow whose way out is clear and it slides off the board; tap one that is blocked and you lose a chance. Clear the board to win.</p>
+      <ul>
+        <li>Endless levels, from easy to super hard, with bigger boards as you climb.</li>
+        <li>A new daily challenge every day, and a league to climb.</li>
+        <li>Time-limited events with boards drawn as pictures.</li>
+      </ul>
+
+      <h2>Support</h2>
+      <p>Questions, problems or ideas: write to <a href={`mailto:${ARROWS.support}`}>{ARROWS.support}</a>. Please say which iPhone and which version of iOS you use, and what happened.</p>
+
+      <h2>Privacy</h2>
+      <p>Your progress stays on your iPhone, there is no account, and the game has no analytics. The app shows ads from Google AdMob. The <a href="/arrows/privacy.html">privacy policy</a> says what that means for you.</p>
+    </div>
+  </article>
+</BaseLayout>

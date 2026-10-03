@@ -17,6 +17,8 @@ export interface Props {
   /** Structured data (schema.org) for this page. */
   jsonLd?: Record<string, unknown>;
   noindex?: boolean;
+  /** False leaves out the AdSense script: the Arrows pages, which App Review opens. */
+  ads?: boolean;
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   modifiedTime,
   jsonLd,
   noindex = false,
+  ads = true,
 } = Astro.props;
 
 const documentTitle = title ? `${title} · ${SITE.name}` : SITE.title;
@@ -96,11 +99,17 @@ const structuredData = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c')
 
 {structuredData && <script is:inline type="application/ld+json" set:html={structuredData} />}
 
-<!-- Google AdSense. If an ad blocker stops the script, the ad slots collapse (see .ads-blocked). -->
-<meta name="google-adsense-account" content={ADSENSE.client} />
-<script
-  is:inline
-  async
-  src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.client}`}
-  crossorigin="anonymous"
-  onerror="document.documentElement.classList.add('ads-blocked')"></script>
+<!-- Google AdSense, unless the page opts out. If an ad blocker stops the script, the ad slots collapse (see .ads-blocked). -->
+{
+  ads && (
+    <>
+      <meta name="google-adsense-account" content={ADSENSE.client} />
+      <script
+        is:inline
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.client}`}
+        crossorigin="anonymous"
+        onerror="document.documentElement.classList.add('ads-blocked')"></script>
+    </>
+  )
+}

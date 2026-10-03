@@ -559,3 +559,39 @@ button {
 .ads-blocked .ad {
   display: none;
 }
+
+/* Document pages: the privacy policies and the Arrows pages. */
+
+.policy {
+  max-width: var(--prose-width);
+  padding-top: clamp(2.5rem, 7vw, 5rem);
+}
+
+.policy-header {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.policy h1 {
+  font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
+}
+
+.policy-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-subtle);
+}
+
+/* Links in the header read as links, like the footer's. */
+.policy-meta a,
+.policy-header .eyebrow a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.policy-meta a:hover,
+.policy-header .eyebrow a:hover {
+  color: var(--text);
+}
