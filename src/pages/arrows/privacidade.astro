@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ARROWS } from '../../data/arrows';
+---
+
+<!-- The game's own copy is apps/game/privacy.html in jonathascosta/Arrows: change both together. -->
+<BaseLayout
+  lang="pt-BR"
+  title="Política de privacidade do Arrows"
+  description="O que o Arrows: Tap Puzzle, um jogo para iPhone, faz com informações sobre você, e como os anúncios do Google AdMob as usam."
+>
+  <article class="policy container">
+    <header class="policy-header">
+      <p class="eyebrow"><a href="/arrows/pt.html">Arrows: Tap Puzzle</a></p>
+      <h1 class="display">Política de privacidade do Arrows</h1>
+      <p class="policy-meta">
+        Atualizada em <time datetime={ARROWS.policyDate}>3 de outubro de 2026</time> ·
+        <a href="/arrows/privacy.html" hreflang="en" lang="en">In English</a>
+      </p>
+    </header>
+
+    <div class="prose">
+      <p>Arrows é um jogo de quebra-cabeça para iPhone, que também pode ser jogado num navegador, feito por Jonathas Costa (“nós”). Esta página diz o que o jogo faz com informações sobre você.</p>
+
+      <h2>O que o jogo guarda</h2>
+      <p>Seu progresso (níveis, melhores tempos, sua sequência de vitórias, os dias vencidos, sua liga e seus pontos) e seus ajustes ficam apenas no seu aparelho. Não temos servidores: nada disso é enviado para nós nem para mais ninguém. Não há conta, e o jogo não usa ferramentas de análise. Apagar o app apaga esses dados.</p>
+
+      <h2>Anúncios no app para iPhone</h2>
+      <p>O app para iPhone mostra anúncios do Google AdMob: um depois de vencer um tabuleiro e um antes de cada dica. Para mostrar e medir anúncios e evitar fraudes, o software do Google no app pode coletar seu endereço IP e a localização aproximada que ele revela, informações sobre o seu aparelho e o app, e como você interage com os anúncios. Com a sua permissão, ele também usa o identificador de publicidade do aparelho, que pode personalizar os anúncios.</p>
+      <ul>
+        <li>No Espaço Econômico Europeu, no Reino Unido, na Suíça e em lugares com leis parecidas, o app pede o seu consentimento antes. Você pode mudar suas escolhas a qualquer momento nos Ajustes do jogo, em Opções de privacidade.</li>
+        <li>O iOS pergunta se o Arrows pode rastrear você entre apps e sites. Se você disser não, o identificador de publicidade não é usado. Você pode mudar isso nos Ajustes do iPhone, em Privacidade e Segurança, Rastreamento.</li>
+      </ul>
+      <p>O app envia informações apenas ao Google, que pode compartilhá-las com os parceiros de publicidade dele, como a política dele e a mensagem de consentimento descrevem. O Google protege essas informações segundo a própria política de privacidade, com o mesmo cuidado que esta página descreve, ou mais. O uso dessas informações pelo Google segue a política dele: <a href="https://policies.google.com/privacy?hl=pt-BR">Política de Privacidade do Google</a> e <a href="https://policies.google.com/technologies/partner-sites?hl=pt-BR">Como o Google usa informações de sites ou apps que usam os serviços dele</a>.</p>
+
+      <h2>A versão web</h2>
+      <p>A versão web não mostra anúncios. Ela guarda seu progresso apenas no seu navegador.</p>
+
+      <h2>Crianças</h2>
+      <p>O Arrows não é voltado a crianças menores de 13 anos, e não coletamos de propósito informações delas.</p>
+
+      <h2>Mudanças e contato</h2>
+      <p>Se esta política mudar, esta página e a data dela mudam junto. Dúvidas: escreva para <a href={`mailto:${ARROWS.support}`}>{ARROWS.support}</a>.</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .policy {
+    max-width: var(--prose-width);
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .policy-header {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
+  }
+
+  .policy-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+  }
+</style>

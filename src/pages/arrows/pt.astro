@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ARROWS } from '../../data/arrows';
+---
+
+<BaseLayout
+  lang="pt-BR"
+  title="Arrows: Tap Puzzle"
+  description="Arrows é um quebra-cabeça calmo e inteligente para iPhone: tire as flechas do tabuleiro, uma a uma. Suporte e privacidade."
+>
+  <article class="policy container">
+    <header class="policy-header">
+      <p class="eyebrow">Um jogo para iPhone</p>
+      <h1 class="display">Arrows: Tap Puzzle</h1>
+      <p class="policy-meta"><a href="/arrows.html" hreflang="en" lang="en">In English</a></p>
+    </header>
+
+    <div class="prose">
+      <p>Arrows é um quebra-cabeça calmo e inteligente. O tabuleiro está cheio de caminhos em forma de flecha. Toque numa flecha com a saída livre e ela desliza para fora do tabuleiro; toque numa que está bloqueada e você perde uma chance. Limpe o tabuleiro para vencer.</p>
+      <ul>
+        <li>Níveis sem fim, do fácil ao muito difícil, com tabuleiros maiores à medida que você avança.</li>
+        <li>Um desafio novo todo dia e uma liga para subir.</li>
+        <li>Eventos de temporada com tabuleiros desenhados como figuras.</li>
+      </ul>
+
+      <h2>Suporte</h2>
+      <p>Dúvidas, problemas ou ideias: escreva para <a href={`mailto:${ARROWS.support}`}>{ARROWS.support}</a>. Diga qual iPhone e qual versão do iOS você usa, e o que aconteceu.</p>
+
+      <h2>Privacidade</h2>
+      <p>Seu progresso fica no seu iPhone, não há conta, e o jogo não usa ferramentas de análise. O app mostra anúncios do Google AdMob. A <a href="/arrows/privacidade.html">política de privacidade</a> explica o que isso significa para você.</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .policy {
+    max-width: var(--prose-width);
+    padding-top: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .policy-header {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 4.25rem);
+  }
+
+  .policy-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+  }
+</style>
