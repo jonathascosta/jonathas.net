@@ -58,7 +58,7 @@ The cover images are rendered from HTML templates in [`design/covers/`](design/c
 
 ## Ads
 
-`src/components/BaseHead.astro` loads the AdSense script on every page, and `src/scripts/ads.ts` fills each ad slot once it has a width. Anywhere but www.jonathas.net (the dev server, previews), the slots request test ads, which don't count as impressions. A slot that AdSense leaves empty, or that an ad blocker stops, collapses instead of leaving a gap.
+`src/components/BaseHead.astro` loads the AdSense script on every page except those that pass `ads={false}` (the Arrows pages), and `src/scripts/ads.ts` fills each ad slot once it has a width. Anywhere but www.jonathas.net (the dev server, previews), the slots request test ads, which don't count as impressions. A slot that AdSense leaves empty, or that an ad blocker stops, collapses instead of leaving a gap.
 
 Consent in the EEA, the UK and Switzerland is handled by Google's consent message, set up under **Privacy & messaging** in AdSense.
 
